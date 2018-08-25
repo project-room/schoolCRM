@@ -1,0 +1,1185 @@
+.showhead {
+    position: relative;
+    height: 60px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.showhead .showName {
+    position: absolute;
+    right: 50px;
+    top: 30%;
+    font-size: 12px;
+    text-align: center;
+    width: 120px;
+}
+
+.showhead .showName img {
+    width: 14px;
+}
+
+.leftSide {
+    position: absolute;
+    top: 0;
+    /* bottom: 0; */
+    height: 97%;
+    width: 180px;
+    background: #fff;
+    padding-top: 20px;
+    box-shadow: 1px 1px 3px #ccc;
+}
+
+.sideImg {
+    text-align: center;
+}
+
+.sideNav ul li {
+    text-align: center;
+    padding: 20px 10px 20px 10px;
+    background: url('/static/img/setting01.png') 20px center no-repeat;
+}
+
+.sideContent {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    background: #fff;
+}
+
+/*上课信息*/
+
+.sideContent .tiaoshi {
+    position: relative;
+}
+
+.sideContent .tiaoshi .contentHead {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .tiaoshi .contentHead input[type="button"] {
+    width: 65px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    background-color: #fcb636;
+    color: #fff;
+}
+
+.sideContent .tiaoshi .contentHead input[type="text"] {
+    width: 110px;
+    height: 28px;
+    outline: none;
+    font-size: 12px;
+    border: none;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right div {
+    display: inline-block;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right div+div {
+    margin-left: 10px;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right div div {
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+}
+
+.sideContent .tiaoshi .mainContent {
+    position: absolute;
+    left: 181px;
+    top: 71px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .tiaoshi .mainContent .contentTitle li {
+    /* padding-left: 18px; */
+    background: #ececec;
+}
+
+.sideContent .tiaoshi .mainContent .contentTitle li,
+.sideContent .tiaoshi .mainContent .mainShow li {
+    border-bottom: 1px solid #ccc;
+    /* text-align: center; */
+}
+
+.sideContent .tiaoshi .mainContent .mainShow .operate {
+    display: none;
+    font-size: 12px;
+}
+
+.sideContent .tiaoshi .mainContent .mainShow .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/* .sideContent .tiaoshi .contentHead .paddingName{
+      margin-left: 215px;
+} */
+
+.sideContent .tiaoshi .contentHead {
+    position: relative;
+}
+
+.sideContent .tiaoshi .contentHead .paddingLeft {
+    position: absolute;
+    left: 20px;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right {
+    position: absolute;
+    right: 10px;
+}
+
+/* .sideContent .tiaoshi .contentHead .paddingLeft,
+.sideContent .tiaoshi .contentHead .padding_right {
+    position: static;
+}
+.sideContent .teacherNew .mainContent .contentTitle span,
+.sideContent .teacherNew .mainContent .mainShow span {
+    display: inline-block;
+    width: 100px;
+    padding: 10px 0px 10px 0px;
+    font-size: 12px;
+} */
+
+/*学生信息*/
+
+.sideContent .studentBig {
+    position: relative;
+}
+
+.sideContent .studentBig .contentHead div {
+    display: inline-block;
+}
+
+.sideContent .studentBig .contentHead {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .studentBig .contentHead input[type="button"] {
+    width: 65px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    background: #fcb636;
+    color: #fff;
+}
+
+.sideContent .studentBig .contentHead .padding_right {
+    height: 30px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: absolute;
+    right: 100px;
+    padding: 0 10px 0 10px;
+}
+
+.sideContent .studentBig .contentHead .padding_right input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.sideContent .studentBig .studentContent {
+    position: absolute;
+    left: 181px;
+    top: 71px;
+    padding: 20px 0 20px 20px;
+}
+.sideContent .studentBig .studentContent .studentContentTitle{
+    /* padding-left: 18px; */
+    background: #ececec;
+}
+
+.sideContent .studentBig .studentContent ul li {
+    padding: 10px 10px 10px 0px;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+}
+/* .sideContent .studentBig .studentContent input[type="checkbox"]{
+    z-index: 2222;
+} */
+
+.sideContent .studentBig .studentContent .first {
+    margin-left: 20px;
+}
+
+.sideContent .studentBig .studentContent span+span {
+    margin-left: 100px;
+}
+
+.sideContent .studentBig .studentContent .ming {
+    margin-left: 112px
+}
+
+.sideContent .studentBig .studentContent .studentContentMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 200px;
+}
+
+.sideContent .studentBig .studentContent .studentContentMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/*学生添加遮罩层*/
+
+#modal .modal_content .addList p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#modal .modal_content .addList ul {
+    margin: 0 100px 0 100px;
+}
+
+#modal .modal_content .addList ul li {
+    padding: 20px 20px 10px 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+#modal .modal_content .addList ul li span {
+    /* margin-left: 50px; */
+    display: inline-block;
+    width: 100px;
+}
+
+#modal .modal_content .addList ul li input[type="text"] {
+    border: none;
+    outline: none;
+    height: 30px;
+    width: 300px;
+}
+
+#modal .modal_content .addList .addListButton {
+    text-align: center;
+    margin-top: 80px;
+}
+
+#modal .modal_content .addList .addListButton input[type="button"] {
+    width: 130px;
+    height: 40px;
+    margin: 0px 25px 0px 25px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+#modal .modal_content .addList .addListButton input[value="添加"] {
+    background: skyblue;
+}
+
+/*教师添加遮罩层*/
+
+#modal .modal_content .teacherAddList p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#modal .modal_content .teacherAddList ul {
+    margin: 0 100px 0 100px;
+}
+
+#modal .modal_content .teacherAddList ul li {
+    padding: 20px 20px 10px 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+#modal .modal_content .teacherAddList ul li span {
+    /* margin-left: 50px; */
+    display: inline-block;
+    width: 150px;
+}
+
+#modal .modal_content .teacherAddList ul li input[type="text"] {
+    border: none;
+    outline: none;
+    height: 30px;
+    width: 300px;
+}
+
+#modal .modal_content .teacherAddList .addListButton {
+    text-align: center;
+    margin-top: 80px;
+}
+
+#modal .modal_content .teacherAddList .addListButton input[type="button"] {
+    width: 130px;
+    height: 40px;
+    margin: 0px 25px 0px 25px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+#modal .modal_content .teacherAddList .addListButton input[value="添加"] {
+    background: skyblue;
+}
+
+/*学生信息详情*/
+.sideContent .studentBig .studentDetail {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    display: none;
+}
+.sideContent .studentBig .studentDetail .studentDetailTitle{
+    font-size: 18px;
+    margin-left: 45px;
+    margin-bottom: 30px;
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .Nav{
+    margin-left: 45px;
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .Nav li{
+    display: inline-block;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px 0 20px;
+    
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .Nav li+li{
+    margin-left: -6px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .new{
+    font-size: 14px;
+    margin-left: 45px;
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .new li{
+    padding: 20px 0 20px 0;
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .new li span{
+    display: inline-block;
+    width: 100px;
+
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history{
+    font-size: 14px;
+    margin-left: 45px;
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history .historyTitle{
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    background: #ececec;
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history li{
+    padding: 15px 0 15px 0;
+
+}
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history li span{
+    display: inline-block;
+    width: 110px;
+
+}
+
+.active{
+    background:#fcb636;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+/*教师信息*/
+
+.sideContent .teacherNew {
+    position: relative;
+}
+
+.sideContent .teacherNew .contentHead {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .teacherNew .contentHead input[type="button"] {
+    width: 65px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    background: #fcb636;
+    color: #fff;
+}
+
+.sideContent .teacherNew .contentHead input[type="text"] {
+    width: 110px;
+    height: 28px;
+    outline: none;
+    font-size: 12px;
+    border: none;
+}
+
+.sideContent .teacherNew .contentHead .padding_right div {
+    display: inline-block;
+}
+
+.sideContent .teacherNew .contentHead .padding_right div+div {
+    margin-left: 10px;
+}
+
+.sideContent .teacherNew .contentHead .padding_right div div {
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+}
+
+.sideContent .teacherNew .mainContent {
+    position: absolute;
+    left: 181px;
+    top: 71px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .teacherNew .mainContent .contentTitle li {
+    /* padding-left: 18px; */
+    background: #ececec;
+}
+
+.sideContent .teacherNew .mainContent .contentTitle li,
+.sideContent .teacherNew .mainContent .mainShow li {
+    border-bottom: 1px solid #ccc;
+    /* text-align: center; */
+}
+
+.sideContent .teacherNew .mainContent .mainShow .operate {
+    display: none;
+    font-size: 12px;
+}
+
+.sideContent .teacherNew .mainContent .mainShow .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/* .sideContent .tiaoshi .contentHead .paddingName{
+      margin-left: 215px;
+} */
+
+.sideContent .teacherNew .contentHead {
+    position: relative;
+}
+
+.sideContent .teacherNew .contentHead .paddingLeft {
+    position: absolute;
+    left: 20px;
+}
+
+.sideContent .teacherNew .contentHead .padding_right {
+    position: absolute;
+    right: 10px;
+}
+
+/*教师信息详情*/
+.sideContent .teacherNew .teacherDetail {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    display: none;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailTitle{
+    font-size: 18px;
+    margin-left: 45px;
+    margin-bottom: 30px;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .Nav{
+    margin-left: 45px;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .Nav li{
+    display: inline-block;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px 0 20px;
+    
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .Nav li+li{
+    margin-left: -6px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .new{
+    font-size: 14px;
+    margin-left: 45px;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .new li{
+    padding: 20px 0 20px 0;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .new li span{
+    display: inline-block;
+    width: 100px;
+
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history{
+    font-size: 14px;
+    margin-left: 45px;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history .historyTitle{
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    background: #ececec;
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history li{
+    padding: 15px 0 15px 0;
+
+}
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history li span{
+    display: inline-block;
+    width: 110px;
+
+}
+
+
+
+/*
+ 遮罩层
+*/
+
+#cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#modal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#modal #close {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*小的遮罩层*/
+
+#smallcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#smallmodal {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -150px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#smallmodal #smallclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+#smallmodal .smassModal_content p {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 20px;
+}
+#smallmodal .smassModal_content div{
+    margin-top: 50px;
+    text-align: center;
+}
+#smallmodal .smassModal_content div input{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    margin: 0 15px 0 15px;
+}
+#smallmodal .smassModal_content div input[value="确定"]{
+    background: skyblue;
+}
+
+
+
+
+
+
+/*导出*/
+
+#modal .modal_content .daochu p {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+#modal .modal_content .daochu .checkAll {
+    display: inline-block;
+    margin-top: 120px;
+    margin-left: 60px;
+}
+
+#modal .modal_content .daochu ul li {
+    display: inline-block;
+    width: 25.33%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#modal .modal_content .daochu span {
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+#modal .modal_content .daochu input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+#modal .modal_content .daochu .modal_button {
+    width: 500px;
+    height: 100px;
+    line-height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#modal .modal_content .daochu .modal_button input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+}
+
+#modal .modal_content .daochu .modal_button input[value="确定"] {
+    background: skyblue;
+}
+
+#modal .modal_content .daochu .modal_button input[type="button"]+input[type="button"] {
+    margin-left: 100px;
+}
+
+/*添加*/
+
+#modal .modal_content .add p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#modal .modal_content .add .classNew ul {
+    padding-bottom: 20px;
+}
+
+#modal .modal_content .add .classNew ul li {
+    display: inline-block;
+    width: 40%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#modal .modal_content .add .classNew span {
+    /* margin-left: 20px; */
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+    margin-right: 5px;
+}
+
+#modal {
+    overflow: auto;
+}
+
+#modal .modal_content .add .classNew input[type="text"] {
+    width: 62%;
+    height: 25px;
+}
+
+#modal .modal_content .add .studentList ul li {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 60px;
+}
+
+#modal .modal_content .add .studentList input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+    vertical-align: middle;
+}
+
+#modal .modal_content .add .studentList .teshu {
+    padding-left: 100px;
+}
+
+#modal .modal_content .add .studentList img {
+    vertical-align: middle;
+}
+
+#modal .modal_content .add .studentList span {
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+}
+
+#modal .modal_content .add .studentList input[type='text'] {
+    margin-left: 30px;
+}
+
+#modal .modal_content .add .studentList .listFirst {
+    margin-left: 28px;
+}
+
+#modal .modal_content .add .studentList span+span {
+    margin-left: 95px;
+}
+
+#modal .modal_content .add .studentList .addstudent input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+#modal .modal_content .add .studentList .addSave input[type='button'] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    /* margin-top: 20px; */
+}
+
+#modal .modal_content .add .studentList .addSave input[value="取消"] {
+    margin-right: 50px;
+    margin-left: 450px;
+}
+
+#modal .modal_content .add .studentList .addSave input[value="提交"] {
+    background: skyblue;
+}
+
+/*最顶层的弹框*/
+
+#Topcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    display: none;
+    z-Index: 9999;
+}
+
+#Topmodal {
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -350px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 10000;
+}
+
+#Topmodal #Topclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*帐号设置*/
+
+.sideContent .numberSetting {
+    position: relative;
+}
+
+.sideContent .numberSetting .setting {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .numberSetting .setting ul li {
+    padding: 15px 0 15px 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .numberSetting .setting ul li span+span {
+    margin-left: 10px;
+}
+
+.sideContent .numberSetting .setting ul li input {
+    margin-left: 10px;
+    border: none;
+    outline: none;
+}
+
+.sideContent .numberSetting .setting ul li .correct {
+    position: absolute;
+    right: 300px;
+    font-size: 12px;
+    color: #169BD5;
+}
+
+/*回收站*/
+
+.sideContent .recycle {
+    position: relative;
+}
+
+.sideContent .recycle .recycleTitle {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .recycle .recycleTitle ul li {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background: #fcb636;
+}
+
+.sideContent .recycle .recycleTitle ul li+li {
+    margin-left: -5px;
+}
+
+.sideContent .recycle .recycleContent {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 70px 0 20px 20px;
+}
+
+.sideContent .recycle .recycleContent li {
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .recycle .recycleContent li span {
+    padding: 10px 0 10px 0;
+}
+
+.sideContent .recycle .recycleContent input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.sideContent .recycle .recycleContent .recycleContentTitle ul li {
+    background: #ececec;
+}
+
+.sideContent .recycle .recycleContent .recycleContentTitle ul li span {
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+    /* margin-left: 20px; */
+    text-align: center;
+}
+
+.sideContent .recycle .recycleContent .recycleMain ul li span {
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+    text-align: center;
+}
+
+.sideContent .recycle .recycleContent .recycleMain ul li .longdate {
+    width: 170px;
+}
+
+.sideContent .recycle .recycleContent .recycleMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.sideContent .recycle .recycleContent .recycleMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/*对所有需要改变手指的li统一修改*/
+
+.tiaoshi .mainContent .mainShow ul li,
+.studentBig .studentContent .studentContentMain ul li,
+.teacherNew .mainContent .mainShow ul li,
+.recycle .recycleContent .recycleMain ul li {
+    cursor: pointer;
+}
+
+.tiaoshi .mainContent .mainShow ul li:hover,
+.studentBig .studentContent .studentContentMain ul li:hover,
+.teacherNew .mainContent .mainShow ul li:hover,
+.recycle .recycleContent .recycleMain ul li:hover {
+    background: rgb(231, 244, 250)
+}
+
+/*点击上课信息的添加学生*/
+
+#Topmodal .TopModal_content .search {
+    position: relative;
+    height: 30px;
+    padding: 20px;
+}
+
+#Topmodal .TopModal_content .search input {
+    height: 100%;
+    width: 300px;
+    padding-left: 20px;
+    outline: none;
+}
+
+#Topmodal .TopModal_content .search img {
+    position: absolute;
+    left: 311px;
+    top: 21px;
+    height: 45%;
+    background: #fff;
+}
+
+#Topmodal .TopModal_content .contentTitle ul li,
+#Topmodal .TopModal_content .mainShow ul li {
+    padding: 20px 20px 20px 20px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+#Topmodal .TopModal_content .contentTitle ul li span,
+#Topmodal .TopModal_content .mainShow ul li span {
+    display: inline-block;
+    width: 100px;
+}
+
+#Topmodal .TopModal_content .mainShow .operate {
+    display: none;
+}
+
+#Topmodal .TopModal_content .mainShow .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/*
+  媒体查询
+*/
+
+@media screen and (max-width: 1200px) {
+    .sideContent .tiaoshi .contentHead .paddingLeft,
+    .sideContent .tiaoshi .contentHead .padding_right {
+        /* position: static; */
+    }
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        /* display: inline-block; */
+        width: 100px;
+        padding: 10px 0px 10px 0px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .sideContent .tiaoshi .contentHead .paddingLeft,
+    .sideContent .tiaoshi .contentHead .padding_right {
+        /* position: static; */
+    }
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px 0px 10px 0px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .sideContent .tiaoshi .contentHead .paddingLeft,
+    .sideContent .tiaoshi .contentHead .padding_right {
+        /* position: static; */
+    }
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        /* display: inline-block; */
+        /* width: 100px; */
+        padding: 10px 0px 10px 0px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:0;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 95px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:0;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:0;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:60px;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px 20px 10px 20px;
+        font-size: 12px;
+    }
+    .sideContent .tiaoshi .contentHead .padding_right,
+    .sideContent .teacherNew .contentHead .padding_right {
+        position: absolute;
+        right: 20px;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:180px;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px 30px 10px 30px;
+        font-size: 12px;
+    }
+}
+
+.pagination li{
+    display: inline-block;
+}

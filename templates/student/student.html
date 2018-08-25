@@ -1,0 +1,429 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- 学生信息 -->
+    <div class="studentBig">
+        <div class="contentHead">
+
+            <div class="paddingLeft">
+                    <input type="button" value="添加"
+                           style="background:#fcb636 url(../../static/img/add.png) 10px center no-repeat;padding-left: 20px;">
+                <input type="button" value="导入" data-toggle="modal" data-target="#myModal"
+                       style="background:#fcb636 url({% static 'img/import.png' %}) 10px center no-repeat;padding-left: 20px;">
+                <input type="button" value="导出" id="emit_btn_stu"
+                       style="background:#fcb636 url({% static 'img/export.png' %}) 10px center no-repeat;padding-left: 20px;">
+                <input type="button" value="删除"
+                       style="background:#fcb636 url({% static 'img/delete.png' %}) 5px center no-repeat;color:#fff;border:1px solid #fcb636;font-size: 14px;padding-left: 20px;background-size:24px 24px;" id="deletestudentinfobtn">
+            </div>
+            <div class="padding_right">
+                <form action="{% url 'search_stu' %}" method="get" id="search_stu">
+                    <input type="text" placeholder="请输入学生姓名" name="stu_name"
+                           style="background: url('../static/img/search.png') no-repeat right center;">
+                    <input type="submit" value="查询">
+                </form>
+
+            </div>
+        </div>
+        <div class="studentContent">
+            <div class="studentContentTitle">
+                <ul style="margin-bottom: 0px">
+                    <li>
+                        <input type="checkbox" class="all" style="width:20px;height: 20px;vertical-align: middle;">
+                         <span class="first">Num</span><span class="first">姓名</span><span class="xing" style="text-align: left;">姓</span><span class="ming" style="text-align: left;">名</span><span class="ming" style="text-align: left;">联系方式</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="studentContentMain student">
+            <form action="" id="deletestudentinfo_form" method="post">
+            {% csrf_token %}
+                <ul>
+                    {% for student in object_list %}
+                        <li>
+                            <input type="checkbox" name='hxy' value="{{ student.id }}" style="width:20px;height: 20px;vertical-align: middle;">
+                                <a href="{% url 'student_info' student.id %}">
+                                    <input type="hidden" name="student_detail_id" value="{{ student.id }}">
+                                    <span class="first">{{ forloop.counter }}</span><span class="first">{{ student.name }}</span><span>{{ student.first_name }}</span><span style="text-align: left;">{{ student.last_name }}</span><span style="text-align: left;">{{ student.phone }}</span>
+                                </a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </form>
+            </div>
+            {% include "_pagination.html" %}
+         <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">导入EXCEL文件</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="" enctype="multipart/form-data" id="stu_imp_form">
+                                {% csrf_token %}
+                                <input type="file" name="excel">
+                                <div class="modal-footer" id="upload_student_table">
+                                    <li style="list-style: none">下载标准导入表</li>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" id="student_import_upload_btn"  style="background: #fcb636;border: none;">上传</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block zhezhao %}
+
+    <!-- 顶级遮罩层 -->
+    <div id="Topcover"></div>
+    <div id="Topmodal">
+        <div id="Topclose">X</div>
+        <div class="TopModal_content">
+            <div class="search">
+                <input type="text" value="" placeholder="请输入学生姓名">
+                <input type="button" value="查询">
+                <img src="/static/img/search.png" alt="">
+            </div>
+
+            <div class="contentTitle">
+                <ul>
+
+                    <li>
+                        <input type="checkbox" class="all" style="width:20px;height: 20px;">
+                        <span>姓名</span>
+                        <span style="text-align: center;">姓</span>
+                        <span>名</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mainShow">
+                <ul>
+                    <li>
+                        <input type="checkbox" name='hxy' style="width:20px;height: 20px;">
+                        <span>草帽路飞</span>
+                        <span>GAO</span>
+                        <span>YUEJIA</span>
+                        <div class="operate">
+                            <p class="edit">编辑</p>
+                            &nbsp;
+                            <p class="delete">删除</p>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" name='hxy'>
+                        <span>草帽路飞</span>
+                        <span>GAO</span>
+                        <span>YUEJIA</span>
+                        <div class="operate">
+                            <p class="edit">编辑</p>
+                            &nbsp;
+                            <p class="delete">删除</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+     $("#deletestudentinfobtn").click(function () {
+         var $InputChecked=$("#deletestudentinfo_form").find("input[name='hxy']:checked")
+         if($InputChecked.length<1){
+             $(".del_tip").show(100).delay(1000).hide(100);
+         }else{
+                  var isConfirm=confirm('确定删除所选文件？')
+         if(isConfirm==true){
+              $("#deletestudentinfo_form").attr("action","{% url 'delete_studentinfo_batch' %}").submit()
+         }else{
+             for(var i=0;i<$InputChecked.length;i++){
+                 $($InputChecked[i]).attr("checked","checked").prop("checked",false)
+             }
+         }
+       }
+    })
+
+    /**点击页面头部编辑按钮编辑学生信息*/
+    $(function(){
+        $("#stu_edit_btn").click(function(){
+            var $InputChecked=$("#deletestudentinfo_form").find("input[name='hxy']:checked")
+            if($InputChecked.length>1){
+                alert("编辑状态下只能选择一条")
+
+            }else if($InputChecked.length<1){
+                alert("请选择一条数据进行编辑")
+            }
+            else{
+                var student_id=$InputChecked.val()
+                $.ajax({
+                    url:"{% url 'edit_stu' %}",
+                    type:"POST",
+                    data:{"student_id":student_id},
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                        if(data.status=="success"){
+                            var $stuId=data.id
+                            var $stuName=data.name
+                            var $stuFN=data.FN
+                            var $stuLN=data.LN
+                            $("input[name='edit_stu_id']").val($stuId)
+                            $("input[name='edit_stu_name']").val($stuName)
+                            $("input[name='edit_stu_FN']").val($stuFN)
+                            $("input[name='edit_stu_LN']").val($stuLN)
+                        }else{
+                            alert("失败")
+                        }
+                    }
+                })
+            }
+        })
+        /**编辑学生信息后进行保存*/
+        $("#edit_stu_save").click(function(){
+            $formData=new FormData()
+            $formData.append("student_id", $("input[name='edit_stu_id']").val())
+            $formData.append("student_name", $("input[name='edit_stu_name']").val())
+            $formData.append("student_FN", $("input[name='edit_stu_FN']").val())
+            $formData.append("student_LN", $("input[name='edit_stu_LN']").val())
+            $.ajax({
+                url:"{% url 'student_edit_save' %}",
+                type:"POST",
+                data:$formData,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                     if (data.status == "success") {
+                        alert("保存成功");
+                        location.href="{% url 'student' %}"
+                    } else {
+                        alert("保存失败")
+                    }
+
+                }
+
+
+            })
+
+        })
+
+        /**点击学生列表的编辑按钮编辑学生信息*/
+        $(".stu_edit").click(function(){
+            var student_id=$(this).attr("student_id")
+            var $formData=new FormData()
+            $formData.append("student_id",student_id)
+            $.ajax({
+                url:"{% url 'edit_stu' %}",
+                type:"POST",
+                data:$formData,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                    if(data.status=="success"){
+                         var $stuId=data.id
+                         var $stuName=data.name
+                         var $stuFN=data.FN
+                         var $stuLN=data.LN
+                         $("input[name='edit_stu_id']").val($stuId)
+                         $("input[name='edit_stu_name']").val($stuName)
+                         $("input[name='edit_stu_FN']").val($stuFN)
+                         $("input[name='edit_stu_LN']").val($stuLN)
+                    }else{
+                        alert("失败")
+                    }
+
+                }
+
+            })
+        })
+
+        /**添加学生信息*/
+        $("#stu_add_btn").click(function () {
+              var re =/^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/
+              var res =/^1[0-9]{10}$/
+              var str=$(this).parents('.addListButton').siblings('ul').find('.phone_number').val()
+
+            {#约束联系方式格式#}
+            if(re.test(str)|| res.test(str)){
+                $(this).parents('.addListButton').siblings('ul').find('.TorF').addClass('alarm')
+            }else{
+                   $(this).parents('.addListButton').siblings('ul').find('.TorF').removeClass('alarm')
+            }
+
+            {#姓和名必须匹配#}
+            if(re.test(str)|| res.test(str) &&($("input[name='add_stu_name']").val()==$("input[name='add_stu_FN']").val()+$("input[name='add_stu_LN']").val())){
+                 var $formData=new FormData()
+            $formData.append("Name",$("input[name='add_stu_name']").val())
+            $formData.append("FN",$("input[name='add_stu_FN']").val())
+            $formData.append("LN",$("input[name='add_stu_LN']").val())
+            $formData.append("Phone",$("input[name='add_stu_phone']").val())
+
+            $.ajax({
+                url:"{% url 'student_add_save' %}",
+                type:"POST",
+                data:$formData,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                      if (data.status == "success") {
+
+                         $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'student' %}"
+                         });
+
+
+                    }else{
+                          $(".fail_tip").show(100).delay(1000).hide(100);
+                      }
+                }
+            })
+            }else{
+               $(".fail_tip").show(100).delay(1000).hide(100);
+            }
+
+        })
+
+        /**取消添加学生清空input*/
+        $("#stu_cancel_btn").click(function () {
+            $("input[name='add_stu_name']").val("")
+            $("input[name='add_stu_FN']").val("")
+            $("input[name='add_stu_LN']").val("")
+            $("input[name='add_stu_phone']").val("")
+        })
+
+
+
+        /**单条删除学生信息*/
+        $(".del_stu_btn").click(function(){
+            var stu_id=$(this).attr("student_id")
+            var $formData=new FormData()
+            $formData.append("stu_id",stu_id)
+            $.ajax({
+                url:"{% url 'deletestudentinfo' %}",
+                type:"POST",
+                data:$formData,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                    if(data.status=="success"){
+                        alert("删除成功")
+                        location.href="{% url 'student' %}"
+                    }else{
+                        alert("删除失败")
+                    }
+                }
+
+            })
+        })
+    })
+
+    /**导出学生*/
+    $("#emit_btn_stu").click(function () {
+              var $excel_id_list = [];
+                $("input[name='hxy']:checked").each(function () {
+                    $excel_id_list.push($(this).val());
+                });
+
+{#                直接点击导出，如果点击确定，则下载全部的数据#}
+
+                if ($("input[name='hxy']:checked").length === 0) {
+                    var result = confirm("下载全部数据？")
+                    if (result){
+                        $.ajax({
+                        type: 'post',
+                        url: "{% url 'stu_excel_out' %}",
+                        async: false,
+                        data: {
+                            'excel_id_list': JSON.stringify($excel_id_list),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        traditional: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'stu_excel_emit' %}"
+                            } else {
+                                alert("导出操作失败")
+                            }
+                        }
+                    });
+                    }else{
+                        $(".export_tip").show(100).delay(1000).hide(100);
+                    }
+                } else {
+                    $("#student_export_btn").click(function () {
+                        $.ajax({
+                        type: 'post',
+                        url: "{% url 'stu_excel_out' %}",
+                        async: false,
+                        data: {
+                            'excel_id_list': JSON.stringify($excel_id_list),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        traditional: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'stu_excel_emit' %}"
+                            } else {
+                                alert("导出操作失败")
+                            }
+                        }
+                    });
+                    })
+
+                }
+    })
+
+    /**下载标准的学生导入表*/
+    $("#upload_student_table").click(function () {
+       location.href="{% url 'upload_student_table' %}"
+
+    })
+
+    /**学生信息的导入ajax*/
+    $("#student_import_upload_btn").click(function () {
+         $.ajax({
+                url: "{% url 'stu_excel_import' %}",
+                type: "POST",
+                data: new FormData($("#stu_imp_form")[0]),  // 必须加[0]
+                traditional:true, //为必须内容 　　
+                contentType: false,
+                processData: false,
+                headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                success: function (data) {
+                    if (data.status === "ok") {
+                        alert("导入成功！")
+                        location.href="{% url 'student' %}"
+                    } else {
+                        alert(data.msg)
+                    }
+                }
+            });
+    })
+
+    /**点击学生X清空input*/
+    $("#studentaddclose").click(function () {
+        $("input[name='add_stu_name']").val("")
+        $("input[name='add_stu_FN']").val("")
+        $("input[name='add_stu_LN']").val("")
+        $("input[name='add_stu_phone']").val("")
+    })
+
+    </script>
+
+{% endblock %}

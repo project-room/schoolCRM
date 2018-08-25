@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- 帐号设置 -->
+    <div class="numberSetting">
+        <div class="setting">
+            <ul>
+                <li><span>姓名&nbsp;:</span><span>{{ user.real_name }}</span></li>
+                <li><span>登录名&nbsp;:</span><span>{{ user.username }}</span></li>
+                <li><span>密码&nbsp;:</span><input type="text" class="form-control"
+                                                 placeholder="******" readonly="true"><span class="correct">修改</span></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+    <!-- small遮罩层 -->
+{% block cover %}
+    <div id="smallcover"></div>
+    <form method="post" action="{% url 'modifypwd' %}">
+        {% csrf_token %}
+        <div id="smallmodal">
+            <div id="smallclose">X</div>
+            <div class="smallModal_content">
+                <ul>
+                    <li><span>原密码</span> <input type="password" id="ori_pwd" name="ori_pwd" value=""></li>
+                    <li><span>新密码</span> <input type="password" id="new_pwd" name="new_pwd" value=""></li>
+                    <li><span>确认新密码</span> <input type="password" id="ack_pwd" name="ack_pwd" value=""></li>
+                </ul>
+                <div class="smallButton">
+                    <input type="button" value="取消" id="cancel_change_pwd">
+                    <input type="button" id="pwdchange" value="确定" , onclick="">
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $("#pwdchange").click(function () {
+            var $formData = new FormData();
+            $formData.append("ori_pwd", $("#ori_pwd").val());
+            $formData.append("new_pwd", $("#new_pwd").val());
+            $formData.append("ack_pwd", $("#ack_pwd").val());
+
+            $.ajax({
+                url: "{% url 'modifypwd' %}",
+                type: "POST",
+                data: $formData,
+                contentType: false,
+                processData: false,
+                headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                success: function (data) {
+                    if (data.status == "success") {
+                          $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'log_in' %}"
+                         });
+                    } else {
+                         $(".fail_tip").show(100).delay(1000).hide(100);
+                    }
+                }
+            })
+        })
+
+    /**修改密码点击取消按钮清空input*/
+    $("#cancel_change_pwd").click(function () {
+         $("#ori_pwd").val('')
+         $("#new_pwd").val('')
+         $("#ack_pwd").val('')
+    })
+    </script>
+
+{% endblock %}

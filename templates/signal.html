@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- 学生信息 -->
+    <div class="studentBig">
+        <div class="contentHead">
+            <form action="{% url 'search_signal' %}" method="get">{% csrf_token %}
+            <div class="paddingLeft">
+                 操作类型：
+                <select name="operator_type" style="padding-left: 8px; padding-right: 20px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;border-radius: 2px;height: 25px;line-height: 25px;margin-left: 15px;">
+                    <option value="0">全部</option>
+                    <option value="1">删除</option>
+                    <option value="2">添加</option>
+                    <option value="3">修改</option>
+                    <option value="4">导入</option>
+                    <option value="5">导出</option>
+                    <option value="6">登入</option>
+                    <option value="7">登出</option>
+                    {% if user.is_superuser %}
+                    <option value="8">禁用</option>
+                    <option value="9">还原</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="paddingLeft" style="margin-left: 20px;">
+               操作时间：
+                <select name="operator_time" style="padding-left: 8px; padding-right: 20px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;border-radius: 2px;height: 25px;line-height: 25px;margin-left: 15px;">
+                     <option value="0">全部</option>
+                     <option value="1">今天</option>
+                     <option value="2">昨天</option>
+                     <option value="3">本周</option>
+                     <option value="4">上周</option>
+                     <option value="5">本月</option>
+                     <option value="6">上月</option>
+                </select>
+            </div>
+            <div class="paddingLeft" style="margin-left: 50px;width: 65px;height: 30px;">
+                 <input type="submit" value="查询" style="width: 100%;height: 100%;border: none;outline: none;background: #fcb636;color: #fff;border-radius: 5px;">
+            </div>
+        </form>
+        </div>
+        <div class="studentContent">
+            <div class="studentContentTitle">
+                <ul style="margin-bottom: 0px">
+                         <span class="first" style="padding: 10px;width: 250px;">操作</span><span class="xing" style="text-align: left;padding: 10px;width: 200px;">操作时间</span><span class="ming" style="text-align: left;padding: 10px;">用户名</span>
+                </ul>
+            </div>
+            <div class="studentContentMain student">
+            <form action="" id="deletestudentinfo_form" method="post">
+            {% csrf_token %}
+                <ul>
+                    {% for signal in signals %}
+                        <li>
+                                <a href="#">
+                                    <input type="hidden" name="student_detail_id" value="{{ student.id }}">
+                                    <span class="first" style="width: 250px;">{{ signal.reason }}</span><span style="width:200px;">{{ signal.op_time | date:"Y/m/d H:i:s" }}</span><span style="text-align: left;">{{ signal.admin }}</span>
+                                </a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </form>
+            </div>
+            {% include "_pagination.html" %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+    <script>
+
+
+    </script>
+
+{% endblock %}

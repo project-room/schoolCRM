@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <!-- 回收站 -->
+    <div class="recycle">
+        <div class="recycleTitle">
+            <ul>
+                <li><a href="{% url 'recycle' %}">上课信息</a></li>
+                <li><a href="{% url 'recycle_stu' %}">学生信息</a></li>
+                <li><a href="{% url 'recycle_teacher' %}">老师信息</a></li>
+                <li style="background:#fcb636;"><a href="{% url 'recycle_register' %}" style="color:#fff !important;">报名信息</a></li>
+            </ul>
+        </div>
+        <div class="re_button">
+            <input type="button" value="还原">
+            <input type="button" value="删除">
+        </div>
+        <div class="recycleLIst recycleContent">
+            <div class="recycleContentTitle">
+                <ul style="margin-bottom: 0px;">
+                    <li>
+                        <input type="checkbox" class="all" style="width:20px;height: 20px;vertical-align: middle;">
+                        <span style="width: 60px">姓名</span>
+                        <span style="width: 60px">姓</span>
+                        <span style="width: 60px">名</span>
+                        <span style="margin-right:10px">联系方式</span>
+                        <span>时期</span>
+                        <span style="margin-right:15px">课程</span>
+                        <span>课程类型</span>
+                        <span style="width: 60px">时长</span>
+                        <span>应收金额</span>
+                        <span  style="width: 60px">折扣</span>
+                        <span>实收金额</span>
+                        <span>删除日期</span>
+                        <span>备注</span>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="recycleMain">
+            <form action="" id="register_info_trash" method="post">
+            {% csrf_token %}
+                <ul>
+                    {% for register in object_list %}
+                        <li>
+                            <input type="checkbox" name='hxy' value="{{ register.id }}" style="width:20px;height: 20px;vertical-align: middle;">
+                            <span style="width: 60px">{{ register.student.name }}</span>
+                            <span style="width: 60px">{{ register.student.first_name }}</span>
+                            <span style="width: 60px">{{ register.student.last_name }}</span>
+                            <span style="margin-right:10px">{{ register.student.phone }}</span>
+                            <span>{{ register.register_date | date:"Y/m/d" }}</span>
+                            <span style="margin-right:15px">{{ register.course.course_name }}</span>
+                            <span>{{ register.course_type.type_name }}</span>
+                            <span style="width: 60px">{{ register.hours }}</span>
+                            <span>{{ register.price }}</span>
+                            <span  style="width: 60px">{{ register.discount }}</span>
+                            <span>{{ register.final_money }}</span>
+                            <span>{{ register.delete_date | date:"Y/m/d" }}</span>
+                            <span class="show_content" style="cursor:pointer;padding: 0;min-width: 82px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;vertical-align: middle;margin-left: 20px;" >{% if register.note %}{{ register.note }} {% else %} -- {% endif %}</span>
+                            <span class="write_content" style="display:none;position: absolute;top: -20px;border: 1px solid #ccc;border-radius: 5px;background: #fff;width: 100px;"></span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </form>
+            </div>
+            {% include "_pagination.html" %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+
+     var re_btn = $('.recycle .re_button');
+        {#    点击checkbox，再点击右上角还原按钮，再点击确定之后，#}
+        {#    提交form表单#}
+        $(function () {
+            re_btn.find('input[value="还原"]').click(function () {
+                var $InputChecked=$("#register_info_trash").find("input[name='hxy']:checked")
+                if($InputChecked.length<1){
+                    $(".recycle_tip").show(100).delay(1000).hide(100);
+                     $('#recycle_cover').hide();
+                     $("#recycle_modal").hide()
+                }else{
+                     /**点击取消*/
+                     $("#recycle_rec_cancel").click(function () {
+                        for(var i=0;i<$InputChecked.length;i++){
+                            $($InputChecked[i]).attr("checked","checked").prop("checked",false)
+                        }
+                     })
+
+                     /**点击确定*/
+                    $("#recycle_redo").click(function () {
+                    $("#register_info_trash").attr("action", "{% url 'registertrashredo' %}").submit();
+                    })
+                }
+
+            });
+
+              re_btn.find('input[value="删除"]').click(function () {
+                var $InputChecked=$("#register_info_trash").find("input[name='hxy']:checked")
+                if($InputChecked.length<1){
+                    $(".del_tip").show(100).delay(1000).hide(100);
+                    $('#recycledeletecover').hide();
+                    $("#recycledeletemodal").hide();
+                }else{
+                     /**点击取消*/
+                    $("#recycle_del_cancel").click(function () {
+                        for(var i=0;i<$InputChecked.length;i++){
+                            $($InputChecked[i]).attr("checked","checked").prop("checked",false)
+                        }
+                    })
+
+
+                    /**点击确定*/
+                    $(".smallModal_content").find("#delete_forever").click(function () {
+                    $("#register_info_trash").attr("action", "{% url 'register_info_trash_delete_forever' %}").submit();
+                  })
+                }
+
+            });
+
+            /**单个还原报名信息*/
+           $(".comeback").click(function () {
+                var register_info_id=$(this).attr("register_info_id")
+                $(".smallModal_content").find("#recycle_redo").click(function () {
+                       $.ajax({
+                        url: "{% url 'registertrashredo' %}",
+                        type: "GET",
+                        data: {"register_info_id": register_info_id},
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'recycle_register' %}"
+                            } else {
+                                alert("添加操作人员失败")
+                            }
+                        }
+                    })
+
+                });
+            });
+
+
+            /**回收站单个报名信息删除*/
+            $(".delete").click(function () {
+                var register_info_id=$(this).attr("register_info_id")
+                $(".smallModal_content").find("#delete_forever").click(function () {
+                    $.ajax({
+                        url: "{% url 'register_info_trash_delete_forever' %}",
+                        type: "GET",
+                        data: {"register_info_id": register_info_id},
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'recycle_register' %}"
+                            } else {
+                                alert("添加操作人员失败")
+                            }
+                        }
+                    })
+
+
+
+            });
+
+        });
+
+            /** 备注过长*/
+           var show_content=$('.show_content')
+              for(var i=0;i<show_content.length;i++){
+               $(show_content[i]).mouseover(function () {
+                  if($(this).text().length>6){
+                       $(this).siblings('.write_content').css("display",'inline-block').text( $(this).text())
+                  }
+
+               })
+                   $(show_content[i]).mouseout(function () {
+                   $(this).siblings('.write_content').css("display",'none').text( $(this).text())
+
+               })
+              }
+
+        })
+    </script>
+{% endblock %}

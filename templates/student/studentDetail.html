@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="studentBig">
+    <div class="studentDetail">
+        <div class="studentDetailTitle">
+            <a href="{% url 'student' %}"><img class="editAll" src="/static/img/return.png" alt=""></a> &nbsp;&nbsp;查看学生信息
+        </div>
+
+        <div class="detailContent">
+            <div class="title">
+                <form action="" method="post" id="student_edit">{% csrf_token %}
+                <ul>
+                    <input type="hidden" value="{{ student_info.id }}" name="student_id"/>
+                    <li>
+                        <span>姓名:</span>
+                        <input type="text" value="{{ student_info.name }}" readonly="readonly" class="change_input" name="student_name">
+                    </li>
+                    <li>
+                        <span>姓:</span>
+                        <input type="text" value="{{ student_info.first_name }}" readonly="readonly" class="change_input" name="student_FN">
+                    </li>
+                    <li>
+                        <span>名:</span>
+                        <input type="text" value="{{ student_info.last_name }}" readonly="readonly" class="change_input" name="student_LN">
+                    </li>
+                     <li>
+                        <span>联系方式:</span>
+                        <input type="text" value="{{ student_info.phone }}" readonly="readonly" class="change_input" name="student_phone">
+                    </li>
+                     <li>
+                        <span class="save_eidt" id="stu_eidt_save">编辑</span>
+                    </li>
+                </ul>
+                </form>
+            </div>
+
+            <div class="contentFather">
+                <div class="content">
+                    <ul class="apply">
+                        <li class="applyTitle">
+                            <div>
+                                报名信息
+                                <i class="glyphicon glyphicon-triangle-top showOrHide"></i>
+                                <i class="glyphicon glyphicon-triangle-bottom showOrHide" style="display:none"></i>
+                            </div>
+                            <ul>
+                                <li style="background:#ececec;border-bottom:none;">
+                                    <span>姓</span>
+                                    <span>名</span>
+                                    <span>姓名</span>
+                                    <span>日期</span>
+                                    <span>类型</span>
+                                    <span>时长</span>
+                                    <span>应收金额</span>
+                                    <span>折扣</span>
+                                    <span>实收金额</span>
+                                    <span>备注</span>
+                                </li>
+                                <li class="scroll">
+                                    <ul>
+                                        {% for student_register in student_register_infos %}
+                                        <li>
+                                            <span>{{ student_register.student.first_name }}</span>
+                                            <span>{{ student_register.student.last_name }}</span>
+                                            <span>{{ student_register.student.name }}</span>
+                                            <span>{{ student_register.register_date | date:"Y/m/d"}}</span>
+                                            <span>{{ student_register.course_type.type_name }}</span>
+                                            <span>{{ student_register.hours }}</span>
+                                            <span>{{ student_register.price }}</span>
+                                            <span>{{ student_register.discount }}</span>
+                                            <span>{{ student_register.final_money }}</span>
+                                        <span>{% if student_register.note %}{{ student_register.note }}{% else %} -- {% endif %}</span>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                        </li>
+                        <li class="classTitle">
+                            <div>
+                                上课记录
+                                <i class="glyphicon glyphicon-triangle-top showOrHide"></i>
+                                <i class="glyphicon glyphicon-triangle-bottom showOrHide" style="display:none"></i>
+                            </div>
+                            <ul>
+                                <li style="background:#ececec;border-bottom:none;">
+                                    <span>课程</span>
+                                    <span>日期</span>
+                                    <span>姓名</span>
+                                    <span>姓</span>
+                                    <span>名</span>
+                                    <span>课时</span>
+                                    <span>类型</span>
+                                    <span>教授工号</span>
+                                    <span>教师姓名</span>
+                                    <span>剩余课时</span>
+                                </li>
+                                <li class="scroll">
+                                    <ul>
+
+                                        {% for student_course_info in student_course_infos %}
+                                            <li>
+                                                <span>{{ student_course_info.course.course_name }}</span>
+                                                <span>{{ student_course_info.class_date | date:"Y/m/d"}}</span>
+                                                <span>{{ student_course_info.student.name }}</span>
+                                                <span>{{ student_course_info.student.first_name }}</span>
+                                                <span>{{ student_course_info.student.last_name }}</span>
+                                                <span>{{ student_course_info.course.hours }}</span>
+                                                 <span>{{ student_course_info.course_type.type_name }}</span>
+                                                <span>{{ student_course_info.teacher.employee_num }}</span>
+                                                <span>{{ student_course_info.teacher.name }}</span>
+                                                <span>{{ student_course_info.remaining_time }}</span>
+                                            </li>
+                                        {% endfor %}
+
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+    $("#stu_eidt_save").click(function () {
+        if($(this).text()=="保存"){
+            var re =/^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/
+            var res =/^1[0-9]{10}$/
+            var student_name=$("input[name='student_name']").val()
+            var student_FN=$("input[name='student_FN']").val()
+            var student_LN=$("input[name='student_LN']").val()
+            var student_phone=$("input[name='student_phone']").val()
+
+            {#约束联系方式格式#}
+            if(re.test(student_phone)|| res.test(student_phone)&&(student_name==student_FN+student_LN)){
+                var $formDate=new FormData(student_edit)
+            $.ajax({
+                url:"{% url 'student_edit_save' %}",
+                type:"POST",
+                data:$formDate,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                    if(data.status=="success"){
+                           $(".success_tip").show(100).delay(1000).hide(100);
+                    }else{
+                         $(".fail_tip").show(100).delay(1000).hide(100);
+                    }
+                }
+
+            })
+            }else{
+                  {#格式不正确#}
+                $(".fail_tip").show(100).delay(1000).hide(100);
+            }
+
+
+        }
+    })
+
+    </script>
+{% endblock %}

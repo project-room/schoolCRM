@@ -1,0 +1,516 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="registration">
+        <div class="registrationInformation">
+            <div class="registrationInformationTitle">
+                <div class="registrationLeft">
+                    <input type="button" value="添加"  style="background:#fcb636 url(/static/img/add.png) 10px center no-repeat; padding-left: 20px;">
+                    </a>
+                    <input type="button" value="导入" data-toggle="modal" data-target="#myModal" style="background:#fcb636 url(/static/img/import.png) 10px center no-repeat; padding-left: 20px;">
+                    <input type="button" value="导出" id="register_out" style="background:#fcb636 url(/static/img/export.png) 10px center no-repeat; padding-left: 20px;">
+                    <input type="button" value="删除" id="reg_del_btn" style="background:#fcb636 url(/static/img/delete.png) 5px center no-repeat;font-size: inherit;padding-left: 20px;background-size: 24px 24px;">
+                </div>
+                <div class="registrationRight">
+                <form action="" method="get" id="reg_search_form">{% csrf_token %}
+                    <ul>
+                        <li>
+                            <span>姓名:&nbsp;</span>
+                            <div>
+                                <input type="text" placeholder="请输入姓名" name="stu_name">
+                            </div>
+                        </li>
+                        <li style="position:relative" class="hoverLi">
+                                <span>课程类型:&nbsp;</span>
+                                <div class="clickHover">
+                                    <input type="text" placeholder="请选择课程类型" list="selectClass" style="background: url('/static/img/drawdown.png') no-repeat scroll right center transparent;">
+                                    <ul class="hover">
+                                     {% for parent_course in parent_courses%}
+                                        <li class="zero">{{ parent_course.name }}
+                                            <ul class="first">
+                                                {% for course in parent_course.course_set.get_queryset %}
+                                                <li class="f_child" course_id="{{ course.id }}">
+                                                    {{ course.course_name }}
+                                                    <ul class="third">
+                                                        {% for course_type in course_types %}
+                                                        <li course_type_id="{{ course_type.id }}">{{ course_type.type_name }}</li>
+                                                         {% endfor %}
+                                                    </ul>
+                                                </li>
+                                                 {% endfor %}
+                                            </ul>
+                                        </li>
+                                     {% endfor %}
+                                    </ul>
+
+                                </div>
+
+
+                            </li>
+                        <input type="hidden" name="course_id" value=""/>
+                        <input type="hidden" name="course_type_id" value="">
+                        <li>
+                            <span>日期:&nbsp;</span>
+                            <div>
+                                <input type="text" placeholder="请选择日期" id="dateLeft"
+                                       style="background: url('/static/img/drawdown.png') no-repeat scroll right center transparent;" name="start_date">
+                            </div>
+                            —
+                            <div>
+                                <input type="text" placeholder="请选择日期" id="dateRight"
+                                       style="background: url('/static/img/drawdown.png') no-repeat scroll right center transparent;" name="end_date">
+                            </div>
+                        </li>
+
+                    </ul>
+                </form>
+                    <input type="button" value="查询" id="reg_search_btn">
+                </div>
+            </div>
+
+            <div class="registrationContent">
+                <div class="conytentMain">
+                    <form action=""  method="post" id="registration_form">{% csrf_token %}
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr style="color:#000;">
+                            <th><input type="checkbox" style="width: 20px;height: 20px;vertical-align: middle;" class="re_all"></th>
+                            <th>Num</th>
+                            <th>姓</th>
+                            <th>名</th>
+                            <th>姓名</th>
+                            <th>联系方式</th>
+                            <th>创建日期</th>
+                            <th>课程</th>
+                            <th>类型</th>
+                            <th>时长</th>
+                            <th>应收金额($)</th>
+                            <th>折扣($)</th>
+                            <th>实收金额($)</th>
+                            <th>备注</th>
+                        </tr>
+
+
+                        {% for registioninfo in registioninfos %}
+
+                            <tr class="register_detail" register_id="{{ registioninfo.id }}">
+                                <td><input type="checkbox" name='hxy' value="{{ registioninfo.id }}" style="width: 20px;height: 20px;vertical-align: middle;"></td>
+                                {#                                <span>{{ forloop.counter }}</span>#}
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ registioninfo.student.first_name }}</td>
+                                <td>{{ registioninfo.student.last_name }}</td>
+                                <td>{{ registioninfo.student.name }}</td>
+                                <td>{{ registioninfo.student.phone }}</td>
+                                <td>{{ registioninfo.register_date | date:"Y/m/d" }}</td>
+                                <td>{{ registioninfo.course }}</td>
+                                <td>{{ registioninfo.course_type.type_name }}</td>
+                                <td>{{ registioninfo.hours }}</td>
+                                <td>{{ registioninfo.price }}</td>
+                                <td>{{ registioninfo.discount }}</td>
+                                <td>{{ registioninfo.final_money }}</td>
+                                <td>{% if registioninfo.note %}{{ registioninfo.note }}{% else %} -- {% endif %}</td>
+                            <tr/>
+                        {% endfor %}
+                    </table>
+                    </form>
+                </div>
+                {% include "_pagination.html" %}
+
+              <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="font-size: 14px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">导入EXCEL文件</h4>
+                        </div>
+                        <div class="modal-body">
+{#                            action="{% url 'emit_import_register' %}"#}
+                            <form class=""  enctype="multipart/form-data" id="register_import_form">
+                                {% csrf_token %}
+                                <input type="file" name="excel">
+                                 <div class="modal-footer" id="upload_register_table">
+                                    <li style="list-style: none"  onmouseover="this.style.cursor='pointer';this.style.color='#fcb636';" onmouseout="this.style.cursor='normal';this.style.color='#000';">下载标准导入表</li>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" id="register_import_upload_btn" style="background: #fcb636;border:none;">上传</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+    $(function(){
+
+
+        $("#reg_del_btn").click(function () {
+            var $InputChecked=$(".registrationContent").find("input[name='hxy']:checked")
+            if($InputChecked.length<1){
+                $(".del_tip").show(100).delay(1000).hide(100);
+                {#alert("请您选择要删除的数据")#}
+            }else{
+                var isConfirm=confirm("确定要删除您所选择的数据？")
+                if(isConfirm==true){
+                    $("#registration_form").attr("action","{% url 'registration_delete' %}").submit()
+                }else{
+                    for(var i=0;i<$InputChecked.length;i++){
+                        $($InputChecked[i]).attr("checked", "checked").prop("checked", false);
+                    }
+                }
+
+            }
+        })
+
+        $("#reg_search_btn").click(function () {
+            $("#reg_search_form").attr("action","{% url 'registration_search' %}").submit()
+        })
+
+    })
+
+
+    /**报名信息导出*/
+    $("#register_out").click(function () {
+                var $excel_id_list = [];
+                $("input[name='hxy']:checked").each(function () {
+                    $excel_id_list.push($(this).val());
+                });
+
+{#                直接点击导出，如果点击确定，则下载全部的数据#}
+
+                if ($("input[name='hxy']:checked").length === 0) {
+                    var result = confirm("下载全部数据？")
+                    if (result){
+                        $.ajax({
+                        type: 'post',
+                        url: "{% url 'emit_create_excel_register' %}",
+                        async: false,
+                        data: {
+                            'excel_id_list': JSON.stringify($excel_id_list),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        traditional: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'emit_excel_register' %}"
+                            } else {
+                                alert("导出操作失败")
+                            }
+                        }
+                    });
+                    }else{
+                        $(".export_tip").show(100).delay(1000).hide(100);
+                    }
+                } else {
+                    $("#register_export_btn").click(function () {
+                        $.ajax({
+                        type: 'post',
+                        url: "{% url 'emit_create_excel_register' %}",
+                        async: false,
+                        data: {
+                            'excel_id_list': JSON.stringify($excel_id_list),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        traditional: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'emit_excel_register' %}"
+                            } else {
+                                alert("导出操作失败")
+                            }
+                        }
+                    });
+
+                        $('#registercover').hide();
+                        $('#registermodal').hide()
+                    })
+
+                }
+    })
+
+    /**点击tr*/
+    $(".register_detail").click(function () {
+        location.href="/operators/registration_edit/"+$(this).attr("register_id")+"/"
+    })
+
+     /**添加报名学生*/
+    $("#study_sure").click(function () {
+        $('#Topcover').css('display', 'none');
+        $('#Topmodal').css('display', 'none')
+
+
+
+       var stu_id_list= $(".TopModal_content .mainShow").find("input[name='hxy']:checked")
+        for (var i=0;i<stu_id_list.length;i++){
+           $(".study_stu_list").append("<li><input\n" +
+               "                                    type=\"hidden\" name=\"studycheckbox\"  value=\""+$(stu_id_list[i]).val()+"\"><input type=\"text\"  readonly=\"readonly\"  name=\"stu_name\" value=\""+$(stu_id_list[i]).attr("stu_name")+"\"><input type=\"text\"  readonly=\"readonly\"  name=\"stu_FN\" value=\""+$(stu_id_list[i]).attr("stu_FN")+"\"><input type=\"text\"  readonly=\"readonly\"  name=\"stu_LN\" value=\""+$(stu_id_list[i]).attr("stu_LN")+"\"><input type=\"button\" value=\"删除\" class=\"delImg\" data-toggle=\"modal\" /></li>")
+
+        }
+        //去掉复选框的选中状态
+        var checkboxs=$("#selectedstudent").find("input[type='checkbox']:checked")
+        for(var i=0;i<checkboxs.length;i++){
+            $(checkboxs[i]).attr("checkec","checked").prop("checked",false)
+        }
+
+        //点击—符号删除该学生信息
+         $(".delImg").click(function () {
+             $(this).parents('li').remove();
+         })
+    })
+
+     /**提交报名信息*/
+            $("#register_add_stu_btn").click(function () {
+                //获取学生id列表
+                var listCheck=$("input[name='studycheckbox']")
+                var student_id_list=new Array()
+                for(var i=0;i<listCheck.length;i++){
+                    student_id_list.push($(listCheck[i]).val())
+                }
+                //报名信息必填才可以提交
+                if(student_id_list==""||$(".register_course_id").val()==""||$(".course_type_id").val()==""||$(".receivable").val()==""||$(".discount").val()==""||$(".receipts").val()==""||$("input[name='register_date']").val()==""){
+                    $(".fail_tip").show(100).delay(1000).hide(100);
+                }else{
+                        var receivable=$(".receivable").val()
+                        var discount=$(".discount").val()
+                        var receipts=$(".receipts").val()
+                         var reg=/^[0-9]*$/
+                        receivable_reg= reg.test(receivable)
+                        discount_reg= reg.test(discount)
+                        receipts_reg= reg.test(receipts)
+                        if(receivable_reg && discount_reg && receipts_reg){
+                            $formData= new FormData(register_add_form);
+                 $.ajax({
+                        url:"{% url 'addregistrationajax' %}",
+                        type:"POST",
+                        data:{
+                            "student_id_list":JSON.stringify(student_id_list),
+                            "register_course_id":$(".register_course_id").val(),
+                            "course_type_id":$(".course_type_id").val(),
+                            "hours":$("#register_hours").val(),
+                            "receivable":$(".receivable").val(),
+                            "discount":$(".discount").val(),
+                            "receipts":$(".receipts").val(),
+                            "register_date":$("input[name='register_date']").val(),
+                            "register_note":$("input[name='register_note']").val(),
+                        },
+                        traditional: true,
+                        headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                        success:function (data) {
+                             if (data.status == "success") {
+                                  $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'registration' %}"
+                         });
+                            } else {
+                                 $(".fail_tip").show(100).delay(1000).hide(100);
+                            }
+
+                        }
+
+
+                    })
+                        }else{
+                            alert("金额必须为数字")
+                        }
+
+                    }
+            })
+
+
+ /**报名信息添加学生查询*/
+    $("#study_search").click(function(){
+        $.ajax({
+             url:"{% url 'studyinfo_search_name' %}",
+                    type:"POST",
+                    data:{
+                         "student_search_name":$("input[name='student_search_name']").val(),
+                    },
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                        if(data.status=="success"){
+                          var students=data.students
+                          $("#selectedstudent li").remove()
+                            for(var i=0;i<students.length;i++){
+                               $("#selectedstudent").append(" <li>\n" +
+                                "                            <input type=\"checkbox\" name='hxy' style=\"width:20px;height:20px;vertical-align: middle;\" value=\""+students[i].id+"\" stu_name=\""+students[i].Name+"\" stu_FN=\""+students[i].FN+"\" stu_LN=\""+students[i].LN+"\">\n" +
+                                "                            <span>"+students[i].Name+"</span>\n" +
+                                "                            <span>"+students[i].FN+"</span>\n" +
+                                "                            <span>"+students[i].LN+"</span>\n" +
+                                "                            <div class=\"operate\">\n" +
+                                "                                <p class=\"edit\">编辑</p>\n" +
+                                "                                &nbsp;\n" +
+                                "                                <p class=\"delete\">删除</p>\n" +
+                                "                            </div>\n" +
+                                "                        </li>")
+                            }
+
+                        }else{
+                            alert("失败")
+                        }
+                    }
+        })
+    })
+ /** 报名信息添加学生的回车键添加*/
+            $('body').keydown(function (event) {
+                if (event.keyCode==13)  //回车键的键值为13
+                   $("#study_search").click() //调用登录按钮的登录事件
+                   event.stopPropagation();
+            })
+
+     /**添加报名信息新增学生*/
+        $(".study_add_stu_btn").click(function () {
+            var re =/^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/
+            var res =/^1[0-9]{10}$/
+            if(re.test($(".add_stu_phone").val())||res.test($(".add_stu_phone").val())&&($(".add_stu_name").val()==$(".add_stu_FN").val()+$(".add_stu_LN").val())){
+                var $formData=new FormData()
+            $formData.append("Name",$(".add_stu_name").val())
+            $formData.append("FN",$(".add_stu_FN").val())
+            $formData.append("LN",$(".add_stu_LN").val())
+            $formData.append("Phone",$(".add_stu_phone").val())
+
+            $.ajax({
+                url:"{% url 'student_add_save' %}",
+                type:"POST",
+                data:$formData,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                      if (data.status == "success") {
+
+                           $('#Topcover').css('display', 'none');
+                           $('#Topmodal').css('display', 'none')
+                           $(".study_stu_list").append("<li><input\n" +
+               "                                    type=\"hidden\" name=\"studycheckbox\" value=\""+data.stu_id+"\"><input type=\"text\"  readonly=\"readonly\"  name=\"stu_name\" value=\""+data.stu_Name+"\"><input type=\"text\"  readonly=\"readonly\"  name=\"stu_FN\" value=\""+data.stu_FN+"\"><input type=\"text\"  readonly=\"readonly\"  name=\"stu_LN\" value=\""+data.stu_LN+"\"><input type=\"button\" value=\"修改\" class=\"edit_stu\" stu_id=\""+data.stu_id+"\" data-toggle=\"modal\" data-target=\"#editStudent\"/><input type=\"button\" value=\"删除\" class=\"delImg\"  /></li>")
+
+                /**清空新增学生后的input*/
+                $(".add_stu_name").val("")
+                $(".add_stu_FN").val("")
+                $(".add_stu_LN").val("")
+                $(".add_stu_phone").val("")
+
+                //点击—符号删除该学生信息
+                $(".delImg").click(function () {
+                $(this).parents('li').remove();
+                })
+
+
+              /**报名新增学生修改*/
+               $(".edit_stu").click(function () {
+                   $.ajax({
+                    url:"{% url 'edit_stu' %}",
+                    type:"POST",
+                    data:{
+                         "student_id":$(this).attr("stu_id"),
+                    },
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                        if(data.status=="success"){
+                            $(".hidden_edit_stu_id").val(data.id)
+                            $(".edit_stu_name").val( data.name)
+                            $(".edit_stu_FN").val(data.FN)
+                            $(".edit_stu_LN").val(data.LN)
+                            $(".edit_stu_phone").val(data.Phone)
+                        }else{
+                            alert("失败")
+                        }
+                    }
+                   })
+               })
+
+                 /**报名信息编辑完学生后进行保存*/
+                $(".study_edit_stu_btn").click(function () {
+                    var $formData=new FormData()
+                    $formData.append("student_id",$(".hidden_edit_stu_id").val()),
+                    $formData.append("student_name",$(".edit_stu_name").val()),
+                    $formData.append("student_FN",$(".edit_stu_FN").val()),
+                    $formData.append("student_LN",$(".edit_stu_LN").val()),
+                    $formData.append("student_phone",$(".edit_stu_phone").val()),
+                    $.ajax({
+                    url:"{% url 'student_edit_save' %}",
+                    type:"POST",
+                    data:$formData,
+                    contentType:false,
+                    processData:false,
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                        if(data.status=="success"){
+                            $(".success_tip").show(100).delay(1000).hide(100);
+                            {#alert("保存成功")#}
+                            var studycheckboxs=$("input[name='studycheckbox']")
+                            for(var i=0;i<studycheckboxs.length;i++){
+                                if($(studycheckboxs[i]).val()==$(".hidden_edit_stu_id").val()){
+                                    $(studycheckboxs[i]).next().val($(".edit_stu_name").val())
+                                    $(studycheckboxs[i]).next().next().val($(".edit_stu_FN").val())
+                                    $(studycheckboxs[i]).next().next().next().val($(".edit_stu_LN").val())
+                                }
+                            }
+                        }else{
+                            $(".fail_tip").show(100).delay(1000).hide(100);
+                        }
+                    }
+                   })
+                })
+
+                    } else {
+                          $(".fail_tip").show(100).delay(1000).hide(100);
+                          /**清空新增学生后的input*/
+                        $(".add_stu_name").val("")
+                        $(".add_stu_FN").val("")
+                        $(".add_stu_LN").val("")
+                        $(".add_stu_phone").val("")
+                    }
+                }
+
+            })
+            }else{
+                {#新增学生不成功#}
+                /**清空新增学生后的input*/
+                $(".add_stu_name").val("")
+                $(".add_stu_FN").val("")
+                $(".add_stu_LN").val("")
+                $(".add_stu_phone").val("")
+                $(".fail_tip").show(100).delay(1000).hide(100);
+            }
+        })
+
+    /**下载标准的报名导入表*/
+    $("#upload_register_table").click(function () {
+       location.href="{% url 'upload_register_table' %}"
+
+    })
+
+    /**报名信息的导入ajax*/
+    $("#register_import_upload_btn").click(function () {
+         $.ajax({
+                url: "{% url 'emit_import_register' %}",
+                type: "POST",
+                data: new FormData($("#register_import_form")[0]),  // 必须加[0]
+                traditional:true, //为必须内容 　　
+                contentType: false,
+                processData: false,
+                headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                success: function (data) {
+                    if (data.status === "ok") {
+                         alert("导入成功！")
+                        location.href="{% url 'registration' %}"
+                    } else {
+                        alert(data.msg)
+                    }
+                }
+            });
+    })
+
+    /**点击报名X清空input*/
+    $("#registrationclose").click(function () {
+         location.href = "{% url 'registration' %}"
+    })
+    </script>
+{% endblock %}

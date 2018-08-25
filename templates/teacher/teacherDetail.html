@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class="teacherNew">
+        <div class="teacherDetail">
+            <div class="teacherDetailTitle">
+                <a href="{% url 'teacher' %}" style="text-decoration: none;"><img class="editAll" src="/static/img/return.png" alt=""> </a>&nbsp;&nbsp;查看教师信息
+            </div>
+
+            <div class="detailContent">
+                <div class="title">
+                    <form action="" method="post" id="teacher_edit">
+                    <ul>
+                        <input type="hidden" value="{{ teacher_info.id }}" name="teacher_id">
+                        <li>
+                            <span>姓名:</span>
+                            <input type="text" value="{{ teacher_info.name }}" readonly="readonly" class="change_input" name="teacher_name">
+                        </li>
+                        <li>
+                            <span>姓:</span>
+                            <input type="text" value="{{ teacher_info.first_name }}" readonly="readonly" class="change_input" name="FN">
+                        </li>
+                        <li>
+                            <span>名:</span>
+                            <input type="text" value="{{ teacher_info.last_name }}" readonly="readonly" class="change_input" name="LN">
+                        </li>
+                        <li>
+                            <span>教授工号:</span>
+                            <input type="text" value="{{ teacher_info.employee_num }}" readonly="readonly" class="change_input" name="teacher_num">
+                        </li>
+                        <li>
+                            <span>联系方式:</span>
+                            <input type="text" value="{{ teacher_info.phone }}" readonly="readonly" class="change_input" name="teacher_phone">
+                        </li>
+                         <li class="edit_delete">
+                            <span class="save_eidt" id="teach_eidt_save">编辑</span>
+                        </li>
+                    </ul>
+                    </form>
+                </div>
+
+                <div class="contentFather">
+                    <div class="content">
+                        <ul class="apply">
+                            <li class="applyTitle">
+                                课程
+                                <i class="glyphicon glyphicon-triangle-top showOrHide"></i>
+                                <i class="glyphicon glyphicon-triangle-bottom showOrHide" style="display:none"></i>
+                                <ul>
+                                    {% for course in courses %}
+                                        <li>
+                                            <span>{{ course.course_name }}</span>
+                                        </li>
+                                    {% endfor %}
+
+                                </ul>
+
+
+                            </li>
+                            <li class="classTitle">
+                                上课记录
+                                <i class="glyphicon glyphicon-triangle-top showOrHide"></i>
+                                <i class="glyphicon glyphicon-triangle-bottom showOrHide" style="display:none"></i>
+                                <ul>
+                                    <li style="background:#ececec;border-bottom:none;">
+                                        <span>课程</span>
+                                        <span>日期</span>
+                                        <span>姓名</span>
+                                        <span>姓</span>
+                                        <span>名</span>
+                                        <span>课时</span>
+                                        <span>类型</span>
+                                        <span>教授工号</span>
+                                        <span>教师姓名</span>
+
+                                    </li>
+                                    <li class="scroll">
+                                        <ul>
+                                            {% for teacher_course_info in teacher_course_infos %}
+                                                <li>
+                                                    <span>{{ teacher_course_info.course.course_name }}</span>
+                                                    <span>{{ teacher_course_info.class_date | date:"Y/m/d"}}</span>
+                                                    <span>{{ teacher_course_info.student.name }}</span>
+                                                    <span>{{ teacher_info.first_name }}</span>
+                                                    <span>{{ teacher_info.last_name }}</span>
+                                                    <span>{{ teacher_course_info.hours }}</span>
+                                                    <span>{{ teacher_course_info.course_type.type_name }}</span>
+
+                                                    <span>{{ teacher_course_info.teacher.employee_num }}</span>
+                                                    <span>{{ teacher_course_info.teacher.name }}</span>
+                                                </li>
+                                            {% endfor %}
+
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+      $("#teach_eidt_save").click(function () {
+        if($(this).text()=="保存"){
+            var re =/^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/
+            var res =/^1[0-9]{10}$/
+            var teacher_name=$("input[name='teacher_name']").val()
+            var FN=$("input[name='FN']").val()
+            var LN=$("input[name='LN']").val()
+            var teacher_phone=$("input[name='teacher_phone']").val()
+
+             if(re.test(teacher_phone)|| res.test(teacher_phone)&&(teacher_name==FN+LN)){
+                var $formDate=new FormData(teacher_edit)
+            $.ajax({
+                url:"{% url 'teacher_edit_save' %}",
+                type:"POST",
+                data:$formDate,
+                contentType:false,
+                processData:false,
+                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                success:function (data) {
+                    if(data.status=="success"){
+                        $(".success_tip").show(100).delay(1000).hide(100);
+                    }else{
+                         $(".fail_tip").show(100).delay(1000).hide(100);
+                    }
+                }
+
+            })
+             }else{
+                  {#格式不正确#}
+                $(".fail_tip").show(100).delay(1000).hide(100);
+             }
+        }
+    })
+
+    </script>
+{% endblock %}

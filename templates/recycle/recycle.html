@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <!-- 回收站 -->
+    <div class="recycle">
+        <div class="recycleTitle">
+            <ul>
+                <li style="background:#fcb636;"><a href="{% url 'recycle' %}" style="color:#fff !important;">上课信息</a></li>
+                <li><a href="{% url 'recycle_stu' %}">学生信息</a></li>
+                <li><a href="{% url 'recycle_teacher' %}">老师信息</a></li>
+                <li><a href="{% url 'recycle_register' %}">报名信息</a></li>
+            </ul>
+        </div>
+        <div class="re_button">
+            <input type="button" value="还原">
+            <input type="button" value="删除">
+        </div>
+        <div class="classrecycleContent recycleContent" style="display:block;">
+            <div class="recycleContentTitle">
+                <ul style="margin-bottom: 0px;">
+                    <li>
+                        <input type="checkbox" class="all" style="width:20px;height: 20px;vertical-align: middle;margin-right: 20px;">
+                        <span>课程</span>
+                        <span>日期</span>
+                        <span style="width: 80px;">姓名</span>
+                        <span style="width: 50px;">姓</span>
+                        <span style="width: 50px;">名</span>
+                        <span>联系方式</span>
+                        <span style="margin-left: 20px;width: 80px;">时长</span>
+                        <span>教师工号</span>
+                        <span>教师姓名</span>
+                        <span>删除日期</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="recycleMain">
+                <ul>
+                    <form action="" id="study_info_trash" method="post">
+                        {% csrf_token %}
+                        {% for course_info in object_list %}
+                            <li>
+                                <input type="checkbox" name='hxy' value="{{ course_info.id }}" style="width:20px;height: 20px;vertical-align: middle;margin-right: 20px;">
+                                <span>{{ course_info.course.course_name }}</span>
+                                <span>{{ course_info.class_date | date:"Y/m/d" }}</span>
+                                <span style="width: 80px;">{{ course_info.student.name }}</span>
+                                <span style="width: 50px;">{{ course_info.student.last_name }}</span>
+                                <span style="width: 50px;">{{ course_info.student.first_name }}</span>
+                                <span>{{ course_info.student.phone }}</span>
+                                <span style="margin-left: 20px;width: 80px;">{{ course_info.hours }}</span>
+                                <span>{{ course_info.teacher.employee_num }}</span>
+                                <span>{{ course_info.teacher.name }}</span>
+                                <span class="longdate">{{ course_info.delete_date | date:"Y/m/d" }}</span>
+                            </li>
+                        {% endfor %}
+                    </form>
+
+                </ul>
+            </div>
+
+
+            {% include "_pagination.html" %}
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var re_btn = $('.recycle .re_button');
+        {#    点击checkbox，再点击右上角还原按钮，再点击确定之后，#}
+        {#    提交form表单#}
+        $(function () {
+
+            re_btn.find('input[value="还原"]').click(function () {
+                 var $InputChecked=$("#study_info_trash").find("input[name='hxy']:checked")
+                if($InputChecked.length<1){
+                     $(".recycle_tip").show(100).delay(1000).hide(100);
+                       $('#recycle_cover').hide();
+                       $("#recycle_modal").hide()
+                }else{
+                     /**点击取消*/
+                     $("#recycle_rec_cancel").click(function () {
+                        for(var i=0;i<$InputChecked.length;i++){
+                            $($InputChecked[i]).attr("checked","checked").prop("checked",false)
+                        }
+                     })
+
+                     /**点击确定*/
+                      $(".smallModal_content").find("#recycle_redo").click(function () {
+                      $("#study_info_trash").attr("action", "{% url 'redo_studyinfo' %}").submit();
+                       })
+                }
+            });
+
+            re_btn.find('input[value="删除"]').click(function () {
+                var $InputChecked=$("#study_info_trash").find("input[name='hxy']:checked")
+                if($InputChecked.length<1){
+                   $(".del_tip").show(100).delay(1000).hide(100);
+                    $('#recycledeletecover').hide();
+                    $("#recycledeletemodal").hide();
+                }else{
+                    /**点击取消*/
+                    $("#recycle_del_cancel").click(function () {
+                        for(var i=0;i<$InputChecked.length;i++){
+                            $($InputChecked[i]).attr("checked","checked").prop("checked",false)
+                        }
+                    })
+
+
+                    /**点击确定*/
+                     $(".smallModal_content").find("#delete_forever").click(function () {
+                         $("#study_info_trash").attr("action", "{% url 'delete_studyinfo_forever' %}").submit();
+                      })
+                }
+            });
+
+            {#        点击该行数据的还原按钮#}
+            {#    提交form表单#}
+
+
+            $(".comeback").click(function () {
+                $CourseInfoId = $(this).siblings("#hidden_value").val();
+
+                $(".smallModal_content").find("#recycle_redo").click(function () {
+
+                       $.ajax({
+                        url: "{% url 'redo_studyinfo_byid' %}",
+                        type: "GET",
+                        data: {"course_info_id": $CourseInfoId},
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'recycle' %}"
+                            } else {
+                                alert("添加操作人员失败")
+                            }
+                        }
+                    })
+
+                });
+
+            })
+            $(".delete").click(function () {
+                var $CourseInfoId = $(this).siblings("#hidden_value").val();
+                $(".smallModal_content").find("#delete_forever").click(function () {
+                    $.ajax({
+                        url: "{% url 'delete_studyinfo_forever_byid' %}",
+                        type: "GET",
+                        data: {"course_info_id": $CourseInfoId},
+                        success: function (data) {
+                            if (data.status == "success") {
+                                alert("删除操作成功");
+                                location.href = "{% url 'recycle' %}"
+                            } else {
+                                alert("删除操作失败")
+                            }
+                        }
+                    })
+
+
+                });
+
+          })
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,202 @@
+body{
+    background: #fff;
+}
+.settingNumber{
+    padding: 100px;
+}
+.settingNumber nav{
+    text-align: center;
+    margin-top: 200px;
+}
+.settingNumber .settingTitle input[type='button']{
+      width: 60px;
+      height: 30px;
+      border: none;
+      border-radius: 10px;
+      margin:0 10px 0 10px;
+}
+.settingNumber .settingTitle input[type='text']{
+    margin-left: 300px;
+    width: 200px;
+    height: 30px;
+    outline: none;
+}
+.settingNumber .settingTitle input[value="添加"]{
+    background: rgba(25, 158, 216, 1);
+}
+.settingNumber .settingContent{
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+.settingNumber .settingContent ul li {
+    padding: 5px 0px 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.settingNumber .settingContent ul li input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.settingNumber .settingContent ul li span{
+    display: inline-block;
+    width: 100px;
+}
+.settingNumber .settingContent .operate{
+    display:inline-block; 
+}
+.settingNumber .settingContent .operate p{
+    display: inline-block;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/*遮罩层*/
+
+#settingcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#settingmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#settingmodal #settingclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+#settingmodal .settingmodal_content .add{
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px
+}
+#settingmodal .settingmodal_content .compire{
+    margin-left: 30px;
+}
+#settingmodal .settingmodal_content .compire li{
+    padding: 10px 0 10px 10px;
+    border-bottom: 1px solid #ccc;
+}
+#settingmodal .settingmodal_content .compire input{
+     font-size: 14px;
+     border: none;
+     width: 500px;
+}
+#settingmodal .settingmodal_content .userCompire{
+    margin-left: 40px;
+    font-size: 14px;
+}
+#settingmodal .settingmodal_content .userCompire .gray{
+    color: #ccc;
+    margin-top: 5px;
+}
+#settingmodal .settingmodal_content .userCompire ul li {
+    display: inline-block;
+    margin-left: 30px;
+}
+#settingmodal .settingmodal_content .userCompire ul li span{
+    margin-left: 20px;
+}
+#settingmodal .settingmodal_content .userCompire input[type='checkbox']{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+#settingmodal .settingmodal_content .userCompire .userButton{
+    margin-top: 20px;
+    
+}
+#settingmodal .settingmodal_content .userCompire .userButton input{
+    width: 80px;
+    height: 30px;
+    margin: 0px 10px 0px 10px;
+    border: none;
+    border-radius: 10px;
+}
+#settingmodal .settingmodal_content .userCompire .userButton input[value="添加"]{
+    background: skyblue;
+}
+/*小遮罩层*/
+#smallSettingcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    display: none;
+    z-Index: 999;
+}
+
+#smallSettingmodal {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -150px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#smallSettingmodal #smallSettingclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+#smallSettingmodal .smallSettingModal_content p{
+     font-size: 16px;
+     font-weight: bold;
+     text-align: center;
+     margin-top: 30px;
+}
+#smallSettingmodal .smallSettingModal_content .smallSettingButton{
+    text-align: center;
+    margin-top: 80px;
+}
+#smallSettingmodal .smallSettingModal_content .smallSettingButton input{
+    width:80px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 30px;
+    
+}
+#smallSettingmodal .smallSettingModal_content .smallSettingButton input[value="是"]{
+    background: skyblue;
+}

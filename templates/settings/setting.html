@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block extra_css %}
+    <style>
+        .settingNumber {
+            margin-left: 100px;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+
+
+    <div class="settingNumber">
+        <div class="settingTitle">
+            <a href="{% url 'add_user' %}"><input type="button" id="add_btn" value="添加"></a>
+
+            <input type="button" id="forbid_btn" value="禁用">
+
+            <form action="{% url 'search_user' %}" style="float: right;">
+                <input type="text" name="name" value="" placeholder="登录名/姓名">
+                <input type="submit" value="查询">
+            </form>
+
+        </div>
+        <div class="settingContent">
+            <form action="" id="settings_form" method="post">
+                {% csrf_token %}
+                <ul>
+                    <li class="title">
+                        <input type="checkbox" class="allChecked">
+                        <span>登录名</span>
+                        <span>姓名</span>
+                    </li>
+                    {% for single_user in object_list %}
+                        <li>
+                            <input type="checkbox" name='hxy' value="{{ single_user.id }}">
+                            <a href="{% url 'edit_settings' single_user.id %}">
+                            <span>{{ single_user.username }}</span>
+                            <span>{{ single_user.real_name }}</span>
+                            <span style="background: red; display: inline-block;width: 50px;border-radius: 10px;color: #fff;text-align: center;">{% if single_user.is_active %}{% else %}禁用{% endif %}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+        {% include "_pagination.html" %}
+
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $(function () {
+            $("#forbid_btn").click(function () {
+                var checkboxs=$(".settingContent").find("input[type='checkbox']:checked")
+                if(checkboxs.length<1){
+                    $(".forbid_tip").show(100).delay(1000).hide(100);
+                }else{
+                    var isSetting=confirm("确定要禁用？")
+                    if(isSetting){
+                         $("#settings_form").attr("action", "{% url 'forbid_user' %}").submit();
+                    }
+                }
+            });
+
+            {#        先勾选某条数据，#}
+            {#        点击左上角的编辑按钮，#}
+            {#        如果勾选的数据数目大于1，则alert"编辑状态下只能选择一条"#}
+            {#        如果勾选数据数目正确，则跳转到该条数据的编辑页面#}
+
+            $("#edit_btn").click(function () {
+                var $InputChecked = $("input[name='hxy']:checked");
+                if ($InputChecked.length > 1) {
+                    alert("编辑状态下只能选择一条");
+                } else {
+                    var $TargetSpan = $InputChecked.parent().find("a span");
+                    $TargetSpan.trigger("click");
+
+
+                }
+            });
+        })
+
+
+    /**删除人员*/
+    $("#delete_btn").click(function () {
+         $("#settings_form").attr("action","{% url 'del_user' %}").submit()
+    })
+
+    </script>
+{% endblock %}

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>橙果教育</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/showFirst.css' %}">
+
+        {% block extra_css %}
+        {% endblock %}
+
+    {#    <link rel="stylesheet" href="{% static 'css/setting.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/supersized.css' %}">
+    {#    <script src="{% static 'outlib/bootstrap/js/boostrap.js' %}"></script>#}
+    {#    <script src="{% static 'outlib/bootstrap/js/npm.js' %}"></script>#}
+    <script src="{% static 'outlib/jquery/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'outlib/bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'outlib/bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'outlib/jquery/jquery.slimscroll.min.js' %}"></script>
+
+    <script src="{% static 'js/showFirst.js' %}"></script>
+    {#    <script src="{% static 'js/settingbak.js' %}"></script>#}
+
+    <script src="{% static 'outlib/laydate/laydate.js' %}"></script>
+</head>
+
+
+<body>
+
+<div class="showFirst">
+    <div class="rightSide">
+        <div class="showhead">
+            <div class="showName">
+
+                <span style="font-size: 14px;">{{ request.user }}</span>
+                <span>|</span>
+                <a href="#"><img src="{% static 'img/out.png' %}"
+                                                   style="background:100px center no-repeat;margin-left: 6px; vertical-align:sub"/></a>
+            </div>
+        </div>
+        <div class="sideContent">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+        <div class="leftSide">
+            <div class="sideImg">
+                <img src="/static/img/logo.png" alt="">
+            </div>
+            <div class="sideNav">
+                <ul>
+                    <li class="{% ifequal request.path "/operators/basesettings/" %}baseInformation active{% endifequal %}"><span><a
+                            href="{% url 'basesettings' %}">基础信息</a></span></li>
+                    <li class="{% ifequal request.path "/operators/registration/" %}registraInformation active{% endifequal %} {% ifequal request.path param_register %}registraInformation active{% endifequal %} {% ifequal request.path param_register_search %}registraInformation active{% endifequal %}"><span><a
+                            href="{% url 'registration' %}">报名信息</a></span></li>
+                    <li class="{% ifequal request.path "/course/" %}courseInformation active{% endifequal %} {% ifequal request.path param_study %}courseInformation active{% endifequal %} {% ifequal request.path param_study_search %}courseInformation active{% endifequal %}"><span><a
+                            href="{% url 'lesson' %}">上课信息</a></span></li>
+                    <li class="{% ifequal request.path "/student/" %}studentInformation active{% endifequal %} {% ifequal request.path param_stu %}studentInformation active{% endifequal %} {% ifequal request.path param_stu_search %}studentInformation active{% endifequal %}"><span><a
+                            href="{% url 'student' %}">学生信息</a></span></li>
+                    <li class="{% ifequal request.path "/teacher/" %}teacherformation active{% endifequal %} {% ifequal request.path param_teach %}teacherformation active{% endifequal %} {% ifequal request.path param_teach_search %}teacherformation active{% endifequal %}"><span><a
+                            href="{% url 'teacher' %}">教师信息</a></span></li>
+
+                    <li class="{% ifequal request.path "/operators/get_signals/" %}signalformation active{% endifequal %} {% ifequal request.path param_signal %}signalformation active{% endifequal %}"><span><a href="{% url 'get_signals' %}">操作日志</a></span></li>
+
+                    {% if user.is_superuser %}
+                        <li class="{% ifequal request.path "/operators/settings/" %}operatorsInformation  active{% endifequal %} {% ifequal request.path "/operators/add_user/" %}operatorsInformation  active{% endifequal %} {% ifequal request.path param_set %}operatorsInformation  active{% endifequal %} {% ifequal request.path param_set_search %}operatorsInformation  active{% endifequal %}"><span><a
+                                href="{% url 'settings' %}">人员管理</a></span></li>
+                    {% endif %}
+                    <li class="{% ifequal request.path "/operators/account/" %}accountsInformation active{% endifequal %}"><span><a
+                            href="{% url 'account' %}">帐号设置</a></span></li>
+                    <li class="{% ifequal request.path "/operators/recycle/" %}recycleInformation active{% endifequal %} {% ifequal request.path param_stu_recyle %}recycleInformation active{% endifequal %} {% ifequal request.path param_teach_recyle %}recycleInformation active{% endifequal %} {% ifequal request.path param_register_recyle %}recycleInformation active{% endifequal %}"><span><a
+                            href="{% url 'recycle' %}">回收站</a></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- big遮罩层 -->
+    {% block zhezhao %}{% endblock %}
+</div>
+<!-- small遮罩层 -->
+{% block cover %}{% endblock %}
+
+<!-- 上课信息 -->
+<!-- 导出 -->
+<div id="cover"></div>
+<div id="modal">
+    <div id="close">X</div>
+    <div class="modal_content">
+        <div class="daochu">
+            <p> 是否确认导出勾选的数据？</p>
+            <div class="modal_button">
+                <input type="button" value="取消" class="delete" style="width: 65px;height:30px;">
+                <input type="button" value="确定" id="study_export_btn" style="width: 65px;height: 30px;background: #f0ad4e;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- 添加 -->
+        <div id="addcover"></div>
+
+        <div id="addmodal">
+            <div id="addclose">X</div>
+            <div class="modal_content">
+                <div class="add">
+                    <form  action="" method="post" id="study_add_form">{% csrf_token %}
+                    <div class="classNew"><p>课程基本信息</p>
+                        <ul>
+                            <li><span>日期：</span><input type="text" placeholder="请选择日期" id="moneyDate" name="study_date"
+                                           ></li>
+                        <li>
+                          <span>课程:</span>
+                        <select class="study_course_id selectObjId">
+                          {% for parent_course in parent_courses %}
+                           {% if parent_course.course_set.get_queryset %}
+                          <optgroup label="{{ parent_course.name }}" >
+                              {% for child_course in parent_course.course_set.get_queryset %}
+                            <option value ="{{ child_course.id }}" class="click">&nbsp;&nbsp;&nbsp;{{ child_course.course_name }}</option>
+                              {% endfor %}
+                          </optgroup>
+                           {% endif %}
+                            {% endfor %}
+                        </select>
+                        </li>
+                            <li>
+                             <span>类型:</span>
+                            <select class="study_type_id selectObjId">
+                                {% for course_type in course_types %}
+                                <option value="{{ course_type.id }}">{{ course_type.type_name }}</option>
+                                {% endfor %}
+                            </select>
+                           </li>
+                            <li><span>时长：</span><input type="text" name="study_hours" value=""></li>
+                            <li><span>教师姓名：</span>
+                                 <select class="study_employee_id selectObjId" id="teacherKindChange">
+                                {% for teacher in teachers %}
+                                <option value="{{ teacher.id }}" teach_num="{{ teacher.employee_num }}">{{ teacher.name }}</option>
+                                {% endfor %}
+                                 </select>
+                            </li>
+                            <li><span>教师工号：</span><input type="text" name="teach_num"></li>
+                        </ul>
+                    </div>
+                     </form>
+                    <div class="studentList"><p>学生列表</p>
+                        <ul id="study_stu_list">
+                        </ul>
+                        <div class="addstudent"><input class="addStudent" type="button" value="+&nbsp;选择学生" style="outline: none"></div>
+                        <div class="addstudent"><input type="button" data-toggle="modal" data-target="#addStudent" value="+&nbsp;添加学生" style="outline: none"></div>
+                        <div class="addSave"><a href="{% url 'lesson' %}"><input type="button" value="取消"></a><input type="button" value="提交" id="study_add_stu_btn"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   <!-- 添加 -->
+    <div id="registrationcover"></div>
+    <div id="registratiomodal">
+        <div id="registrationclose">X</div>
+        <div class="TopModal_content">
+            <div class="registrationAdd">
+                <div class="registrationAddInfomation">
+                <form action="" method="post" id="register_add_form">{% csrf_token %}
+                    <div class="information">
+                        <p style="font-size: 16px;font-weight: bold; padding-top: 20px;padding-bottom: 20px;padding-left:400px;">报名信息</p>
+                        <ul class="first">
+                            <li>
+                                <span>课程</span>&nbsp;&nbsp;
+{#                                   <select class="register_course_id selectObjId">#}
+{#                                    {% for course in courses %}#}
+{#                                    <option value="{{ course.id }}" hours="{{ course.hours }}">{{ course.course_name }}</option>#}
+{#                                    {% endfor %}#}
+{#                                </select>#}
+                                 <select class="register_course_id selectObjId">
+                                  {% for parent_course in parent_courses %}
+                                      {% if parent_course.course_set.get_queryset %}
+                                  <optgroup label="{{ parent_course.name }}">
+                                      {% for child_course in parent_course.course_set.get_queryset %}
+                                    <option value ="{{ child_course.id }}" class="click">&nbsp;&nbsp;&nbsp;{{ child_course.course_name }}</option>
+                                      {% endfor %}
+                                  </optgroup>
+                                      {% endif %}
+                                  {% endfor %}
+                                 </select>
+                            </li>
+                            <li>
+                                <span>类型</span>&nbsp;&nbsp;
+                                <select class="course_type_id selectObjId">
+                                    {% for course_type in course_types %}
+                                    <option value="{{ course_type.id }}">{{ course_type.type_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </li>
+                            <li>
+                                <span>时长</span>&nbsp;&nbsp;
+                                <input type="text" name="register_hours" id="register_hours" placeholder="请输入时长" style="height:90%;">
+                            </li>
+                        </ul>
+
+                        <ul class="display" style="display:none">
+                            <li>
+                                <span></span>&nbsp;&nbsp;
+                                <div>
+                                    <input type="text" placeholder="请选择课程" list="ClassSelet" style="background: url('{% static "img/drawdown.png" %}') no-repeat scroll 140px center transparent;">
+                                </div>
+                                <datalist id="ClassSelet">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </datalist>
+                            </li>
+                            <li>
+                                <span></span>&nbsp;&nbsp;
+                                <div>
+                                    <input type="text" placeholder="请选择课程类型" list="ClassKind" style="background: url('../../img/drawdown.png') no-repeat scroll 140px center transparent;">
+                                </div>
+                                <datalist id="ClassKind">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </datalist>
+                            </li>
+                            <li>
+                                <span></span>&nbsp;&nbsp;
+                                <input type="text" placeholder="请输入时长" style="height:90%;">
+                            </li>
+                        </ul>
+
+                        <ul class="second">
+                            <li>
+                                <span>应收金额</span>&nbsp;&nbsp;
+                                <input type="text" placeholder="请输入金额" class="receivable">$
+                            </li>
+                            <li>
+                                <span>折扣</span>&nbsp;&nbsp;
+                                <input type="text" placeholder="请输入折扣" class="discount">$
+                            </li>
+                            <li>
+                                <span>实收金额</span>&nbsp;&nbsp;
+                                <input type="text" placeholder="请输入金额" class="receipts">$
+                            </li>
+                        </ul>
+
+                        <div class="date">
+                            <ul>
+                                <li>
+                                    <span>日期</span>&nbsp;&nbsp;
+                                    <div>
+                                        <input type="text" placeholder="请选择日期" id="money" style="background: url('../../img/drawdown.png') no-repeat scroll 140px center transparent;" name="register_date">
+                                    </div>
+                                </li>
+                                <li class="remark">
+                                    <span>备注</span>&nbsp;&nbsp;
+                                    <input type="text" name="register_note" placeholder="可选">
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                 </form>
+                    <div class="stdentList">
+                        <p style="font-size: 16px;font-weight: bold; padding-top: 20px;padding-bottom: 20px;padding-left:400px;">学生列表</p>
+                        <ul id="study_stu_list" class="study_stu_list">
+                        </ul>
+                    </div>
+
+                    <div class="addButton" style="margin:30px 0px 0px 30px;width: 80px">
+                        <input type="button" value="+选择学生" style="outline: none;">
+                    </div>
+ <div class="newStudent"><input type="button" data-toggle="modal" data-target="#addStudent" value="+&nbsp;添加学生" style="outline: none"></div>
+                    <div class="saveButton" style="position: absolute;right: 0px;">
+                        <a href="{% url 'registration' %}"><input type="button" value="取消"></a>
+                        <input type="button" value="提交" id="register_add_stu_btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- 编辑 -->
+        <div id="editcover"></div>
+        <div id="editmodal">
+            <div id="editclose">X</div>
+            <div class="modal_content">
+                <p>编辑上课信息</p>
+                <ul>
+                    <input type="hidden" value="" name="hiddle_studyinfo_id">
+                    <li>
+                        <span>课程:</span>
+                        <input type="text" value="CSC1001" name="studyinfo_course">
+                    </li>
+                    <li>
+                        <span>日期:</span>
+                        <input type="text" value="2018-02-01" name="studyinfo_date">
+                    </li>
+                    <li>
+                        <span>姓名:</span>
+                        <input type="text" value="草帽路飞" name="stu_name_studyinfo">
+                    </li>
+                    <li>
+                        <span>名:</span>
+                        <input type="text" value="GAO" name="stu_LN_studyinfo">
+                    </li>
+                    <li>
+                        <span>姓:</span>
+                        <input type="text" value="YUEJIA" name="stu_FN_studyinfo">
+                    </li>
+                    <li>
+                        <span>时长:</span>
+                        <input type="text" value="2" name="hours_studyinfo">
+                    </li>
+                    <li>
+                        <span>教师工号:</span>
+                        <input type="text" value="019" name="emp_num_studyinfo">
+                    </li>
+                    <li>
+                        <span>教师名字:</span>
+                        <input type="text" value="刘德华" name="tea_name_studyinfo">
+                    </li>
+                </ul>
+                <div class="editButton">
+                    <input type="button" value="取消">
+                    <input type="button" value="保存" id="studyinfo_save">
+                </div>
+            </div>
+        </div>
+
+
+<!-- 学生信息 -->
+<!-- 导出 -->
+<div id="studentcover"></div>
+<div id="studentmodal">
+    <div id="studentclose">X</div>
+    <div class="modal_content">
+        <div class="daochu">
+            <p> 是否确认导出勾选的数据？</p>
+            <div class="modal_button">
+                <input type="button" value="取消" class="delete" style="width: 65px;height: 30px">
+                <input type="button" value="确定" id="student_export_btn" style="width: 65px;height: 30px;background: #fcb636; color: #fff;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 报名信息 -->
+<!-- 导出 -->
+<div id="registercover"></div>
+<div id="registermodal">
+    <div id="registerclose">X</div>
+    <div class="modal_content">
+        <div class="daochu">
+            <p> 是否确认导出勾选的数据？</p>
+            <div class="modal_button" style="position: absolute;bottom: 50px;left: 50%;margin-left: -150px;">
+                <input type="button" value="取消" style="width: 65px;height: 30px;line-height: 30px;">
+                 <input type="button" value="确定" id="register_export_btn" style="width: 65px;height: 30px;background:#fcb636;line-height: 30px;color:#fff;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- 添加 -->
+        <div id="studentaddcover"></div>
+
+<form action="" method="post" id="add_stu_form">
+        <div id="studentaddmodal">
+            <div id="studentaddclose">X</div>
+            <div class="modal_content">
+                <div class="addList">
+                    <p>添加学生信息</p>
+                    <ul>
+                        <li>
+                            <span>姓名&nbsp;:</span>
+                            <input type="text" value="" name="add_stu_name" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>姓&nbsp;:</span>
+                            <input type="text" value="" name="add_stu_FN" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>名&nbsp;:</span>
+                            <input type="text" value="" name="add_stu_LN" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                         <li>
+                            <span>联系方式&nbsp;:</span>
+                            <input class="phone_number" type="text" value="" name="add_stu_phone" placeholder="&nbsp;*&nbsp;必填"><span class="TorF alarm" style="color:red;">&nbsp;*&nbsp;格式不对！</span>
+                        </li>
+                    </ul>
+                    <div class="addListButton">
+                        <input type="button" value="取消" id="stu_cancel_btn">
+                        <input type="button" value="添加" id="stu_add_btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+
+        <!-- 编辑 -->
+        <div id="edistudentcover"></div>
+        <div id="editstudentmodal">
+            <div id="editstudentclose">X</div>
+            <div class="modal_content">{% csrf_token %}
+                <p>编辑学生信息</p>
+                <ul>
+                    <input type="hidden" value="" name="edit_stu_id">
+                    <li>
+                        <span>姓名:</span>
+                        <input type="text" value="高瑞" name="edit_stu_name">
+                    </li>
+                    <li>
+                        <span>姓:</span>
+                        <input type="text" value="GAO" name="edit_stu_FN">
+                    </li>
+                    <li>
+                        <span>名:</span>
+                        <input type="text" value="RUIJIA" name="edit_stu_LN">
+                    </li>
+                </ul>
+                <div class="editButton">
+                    <input type="button" value="取消">
+                    <input type="button" value="保存" id="edit_stu_save">
+                </div>
+            </div>
+        </div>
+        <!-- 上课信息顶级遮罩层 -->
+        <div id="Topcover"></div>
+        <div id="Topmodal">
+            <div id="Topclose">X</div>
+            <div class="TopModal_content">
+                <div class="search">
+                    <input type="text" value="" name="student_search_name" placeholder="请输入学生姓名">
+
+                    <img src="{% static 'img/search.png' %}" alt="" id="study_search">
+                </div>
+
+                <div class="contentTitle">
+                    <ul>
+
+                        <li>
+                            <input type="checkbox" class="all" style="width:20px;height: 20px;vertical-align: middle;">
+                            <span>姓名</span>
+                            <span>姓</span>
+                            <span>名</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mainShow">
+                    <ul id="selectedstudent">
+                        {% for student in students %}
+                              <li>
+                            <input type="checkbox" name='hxy' value="{{ student.id }}" stu_name="{{ student.name }}" stu_FN="{{ student.first_name }}" stu_LN="{{ student.last_name }}" style="width:20px;height: 20px;vertical-align: middle;">
+                            <span>{{ student.name }}</span>
+                            <span>{{ student.first_name }}</span>
+                            <span>{{ student.last_name }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+               <input type="button" value="取消" >
+                <input type="button" value="确定" id="study_sure">
+            </div>
+        </div>
+
+<!-- 报名和上课的添加学生 -->
+<div class="modal fade" id="addStudent" style="z-index: 9999" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加学生</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+                        <li>
+                            <span>姓名&nbsp;:</span>
+                            <input type="text" value="" class="add_stu_name" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>姓&nbsp;:</span>
+                            <input type="text" value="" class="add_stu_FN" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>名&nbsp;:</span>
+                            <input type="text" value="" class="add_stu_LN" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                         <li>
+                            <span>联系方式&nbsp;:</span>
+                            <input type="text" value="" class="add_stu_phone" placeholder="&nbsp;*&nbsp;格式必须正确">
+                        </li>
+                    </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel_add_stu" data-dismiss="modal" style="width:65px;height:30px;border: none;background: #ececec;">关闭</button>
+        <button type="button" class="btn btn-primary study_add_stu_btn" data-dismiss="modal" style="width:65px;height:30px; background:rgb(255,182,54);border: none;">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 报名和上课的编辑学生 -->
+<div class="modal fade" id="editStudent" style="z-index: 9999" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑学生</h4>
+      </div>
+      <div class="modal-body">
+                    <ul>
+                        <input type="hidden" value="" class="hidden_edit_stu_id"/>
+                        <li>
+                            <span>姓名&nbsp;:</span>
+                            <input type="text" value="" class="edit_stu_name">
+                        </li>
+                        <li>
+                            <span>姓&nbsp;:</span>
+                            <input type="text" value="" class="edit_stu_FN">
+                        </li>
+                        <li>
+                            <span>名&nbsp;:</span>
+                            <input type="text" value="" class="edit_stu_LN">
+                        </li>
+                         <li>
+                            <span>联系方式&nbsp;:</span>
+                            <input type="text" value="" class="edit_stu_phone">
+                        </li>
+                    </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:65px;height:30px;border: none;background: #ececec;">关闭</button>
+        <button type="button" class="btn btn-primary study_edit_stu_btn" data-dismiss="modal" style="width:65px;height:30px; background:rgb(255,182,54);border: none;">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 教师信息 -->
+<!-- 导出 -->
+<div id="teachercover"></div>
+<div id="teachermodal">
+    <div id="teacherclose">X</div>
+    <div class="modal_content">
+        <div class="daochu">
+            <p> 是否确认导出勾选的数据？</p>
+            <div class="modal_button">
+                <input type="button" value="取消" class="delete" style="width: 65px;height: 30px;">
+                <input type="button" value="确定" id="teacher_export_btn" style="width: 65px;height: 30px;background: #fcb636;color: #fff;">
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- 教师信息 -->
+        <!-- 导出 -->
+        <div id="teachercover"></div>
+        <div id="teachermodal">
+            <div id="teacherclose">X</div>
+            <div class="modal_content">
+                <div class="daochu">
+                    <p> 是否确认导出勾选的数据？</p>
+                    <div class="modal_button">
+                        <input type="button" value="取消" class="delete">
+                        <input type="button" value="确定">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 添加 -->
+        <div id="teacheraddcover"></div>
+        <div id="teacheraddmodal">
+            <div id="teacheraddclose">X</div>
+            <div class="modal_content">
+                <div class="teacherAddList">
+                    <p>添加教师信息</p>
+                    <ul>
+                        <li>
+                            <span>姓名&nbsp;:</span>
+                            <input type="text" value="" name="tea_add_name" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>姓&nbsp;:</span>
+                            <input type="text" value="" name="tea_add_FN" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>名&nbsp;:</span>
+                            <input type="text" value="" name="tea_add_LN" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>教师工号&nbsp;:</span>
+                            <input type="text" value="" name="tea_add_emp" placeholder="&nbsp;*&nbsp;必填">
+                        </li>
+                        <li>
+                            <span>联系方式 #&nbsp;:</span>
+                            <input class="phone_number" type="text" value="" name="tea_add_phone"  placeholder="&nbsp;*&nbsp;必填"><span class="TorF alarm" style="color:red;">&nbsp;*&nbsp;格式不对！</span>
+                        </li>
+                         <li>
+                            <span>课程 #&nbsp;:</span>
+                             <div class="cloneDiv">
+                                  <select class="tea_add_course_name">
+                                  {% for parent_course in parent_courses %}
+                                      {% if parent_course.course_set.get_queryset %}
+                                  <optgroup label="{{ parent_course.name }}">
+                                      {% for child_course in parent_course.course_set.get_queryset %}
+                                    <option value ="{{ child_course.id }}" class="click">&nbsp;&nbsp;&nbsp;{{ child_course.course_name }}</option>
+                                      {% endfor %}
+                                  </optgroup>
+                                      {% endif %}
+                                  {% endfor %}
+                                 </select>
+                            <span class="teacherAdd" style="width: 50px;display: inline-block;text-align: center;"><img src="/static/img/add01.png" alt=""></span>
+                            <span class="teacherDel " style="width: 50px;display: inline-block;text-align: center;"><img src="/static/img/jian01.png" alt=""></span>
+                             </div>
+                        </li>
+                    </ul>
+                    <div class="addListButton">
+                        <input type="button" value="取消" id="tea_cancel_btn">
+                        <input type="button" value="添加" id="tea_add_btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 编辑 -->
+        <div id="teachereditcover"></div>
+        <div id="teachereditmodal">
+            <div id="teachereditclose">X</div>
+            <div class="modal_content">
+                <p>编辑教师信息</p>
+                <ul>
+                    <input type="hidden" value="" name="edit_tea_id">
+                    <li>
+                        <span>姓名:</span>
+                        <input type="text" value="刘鑫伦" name="edit_tea_name">
+                    </li>
+                    <li>
+                        <span>姓:</span>
+                        <input type="text" value="LIU" name="edit_tea_FN">
+                    </li>
+                    <li>
+                        <span>名:</span>
+                        <input type="text" value="XINLUN" name="edit_tea_LN">
+                    </li>
+                    <li>
+                        <span>教师工号:</span>
+                        <input type="text" value="019" name="edit_tea_num">
+                    </li>
+                    <li>
+                        <span>课程:</span>
+                        <select multiple id="teach_course">
+                           {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.course_name }}</option>
+                           {% endfor %}
+                        </select>
+
+                    </li>
+                </ul>
+
+                <div class="editButton">
+                    <input type="button" value="取消">
+                    <input type="button" value="保存" id="tea_edit_save_btn">
+                </div>
+            </div>
+        </div>
+        <!--3秒弹框自动消失,success-->
+        <div id="recyclemodal" class="success_tip" style="width: 450px;height: 150px;text-align: center;line-height: 150px;font-size: 20px;border-radius: 10px;top: 150px;border: 1px solid #ccc;">
+            <div >
+              添加成功！
+            </div>
+        </div>
+        <!--3秒弹框自动消失,fail-->
+        <div id="recyclemodal" class="fail_tip" style="width: 450px;height: 150px;text-align: center;line-height: 150px;font-size: 20px;border-radius: 10px;top:150px;border: 1px solid #ccc;">
+            <div >
+             添加失败，请重新添加！
+            </div>
+        </div>
+        <!--3秒弹框自动消失,删除-->
+        <div id="recyclemodal" class="del_tip" style="width: 450px;height: 150px;text-align: center;line-height: 150px;font-size: 20px;border-radius: 10px;top:150px;border: 1px solid #ccc;">
+            <div >
+             请选择您要删除的数据！
+            </div>
+        </div>
+        <!--3秒弹框自动消失,禁用-->
+        <div id="recyclemodal" class="forbid_tip" style="width: 450px;height: 150px;text-align: center;line-height: 150px;font-size: 20px;border-radius: 10px;top:150px;border: 1px solid #ccc;">
+            <div >
+             请选择您要禁用的数据！
+            </div>
+        </div>
+        <!--3秒弹框自动消失,还原-->
+        <div id="recyclemodal" class="recycle_tip" style="width: 450px;height: 150px;text-align: center;line-height: 150px;font-size: 20px;border-radius: 10px;top:150px;border: 1px solid #ccc;">
+            <div >
+             请选择您要还原的数据！
+            </div>
+        </div>
+        <!--3秒弹框自动消失,导出-->
+        <div id="recyclemodal" class="export_tip" style="width: 450px;height: 150px;text-align: center;line-height: 150px;font-size: 20px;border-radius: 10px;top:150px;border: 1px solid #ccc;">
+            <div >
+             请勾选要导出的数据！
+            </div>
+        </div>
+
+        <!-- 回收站相关弹框 -->
+        <!-- 还原 -->
+        <div id="recycle_cover"></div>
+        <div id="recycle_modal">
+            <div id="recycle_close">X</div>
+            <div class="smallModal_content">
+                <p style=" margin-top: 60px;text-align: center;font-size: 20px;">确定还原所选文件?</p>
+                <div style=" margin-top: 50px;text-align: center;">
+                    <input type="button" value="取消" id="recycle_rec_cancel">
+                    <input type="button" id="recycle_redo" value="确定" style="background: #fcb636;">
+                </div>
+            </div>
+        </div>
+
+        <!-- 删除 -->
+        <div id="recycledeletecover"></div>
+        <div id="recycledeletemodal">
+            <div id="recycledeleteclose">X</div>
+            <div class="smallModal_content">
+                <p style=" margin-top: 60px;text-align: center;font-size: 20px;">文件删除后无法恢复，是否确定删除所选文件？</p>
+                <div style=" margin-top: 50px;text-align: center;">
+                    <input type="button" value="取消" id="recycle_del_cancel">
+                    <input type="button" id="delete_forever" value="确定" style="background: #fcb636;">
+                </div>
+            </div>
+        </div>
+</body>
+
+   <script>
+    /**控制编辑按钮*/
+    $(function () {
+
+        $(".save_eidt").click(function () {
+        if($(this).text()=="编辑"){
+            $(this).text("保存")
+            $(".change_input").attr("readonly",false).css('border','1px solid #ccc')
+        }else{
+            $(this).text("编辑")
+            $(".change_input").attr("readonly",true).css('border','none')
+
+        }
+        })
+
+        /**查询的课程类型默认不选中*/
+        var objs=document.getElementsByClassName("selectObjId")
+        for(var i=0;i<objs.length;i++){
+             objs[i].selectedIndex = -1;
+        }
+
+        /**关闭添加学生清空input*/
+        $(".cancel_add_stu").click(function () {
+            $(".add_stu_name").val("")
+            $(".add_stu_FN").val("")
+            $(".add_stu_LN").val("")
+            $(".add_stu_phone").val("")
+        })
+
+    })
+
+       /** 教师添加框的+/-号*/
+        $('.teacherAdd').click(function () {
+           $(this).parents('.cloneDiv').after( $(this).parents('.cloneDiv').last().clone(true).addClass('teacherNew').css('margin','10px 0px 0px 154px').css('display','block'))
+            var newList=$('.teacherAdd').parents('.cloneDiv').siblings('.teacherNew').find('.teacherDel ')
+              newList.click(function () {
+            $(this).parents('.cloneDiv').remove()
+       })
+        })
+
+
+       $('.showName').find('img').mouseover(function () {
+          $(this).attr('src','/static/img/out1.png').css('width','14px').css('height','15px')
+       })
+    $('.showName').find('img').mouseout(function () {
+          $(this).attr('src','/static/img/out.png').css('width','14px').css('height','15px')
+       })
+
+
+       /** 点击退出登录的时候确认*/
+      $('.showName a').click(function () {
+             var logout=confirm("确定退出登录？")
+              if (logout==true){
+                  location.href="{% url 'log_out' %}"
+                }
+      })
+
+
+
+       var text=$('.click')
+       for(var i=0;i<text.length;i++){
+          $(text[i]).mouseover(function () {
+          })
+       }
+
+
+    </script>
+
+{% block extra_js %}
+
+
+{% endblock %}
+
+</html>

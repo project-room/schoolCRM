@@ -1,0 +1,478 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- 教师信息 -->
+
+    <div class="teacherNew">
+        <div class="contentHead">
+            <div class="paddingLeft">
+                <input type="button" value="添加"
+                       style="background:#fcb636 url(../../static/img/add.png) 10px center no-repeat;padding-left: 20px;">
+                <input type="button" value="导入" data-toggle="modal" data-target="#myModal"
+                       style="background:#fcb636 url(../../static/img/import.png) 10px center no-repeat;padding-left: 20px;">
+                <input type="button" value="导出" id="emit_btn_teach"
+                       style="background:#fcb636 url(../../static/img/export.png) 10px center no-repeat;padding-left: 20px;">
+                <input type="button" value="删除"
+                        style="background:#fcb636 url({% static 'img/delete.png' %}) 5px center no-repeat;color:#fff;border:1px solid #fcb636;font-size: 14px;padding-left: 20px;background-size:24px 24px;"
+                       id="deleteteacherinfobtn">
+            </div>
+            <div class="padding_right">
+                <form action="{% url 'search_teacher' %}" method="get" id="search_teacher">
+                    <div class="paddingName">
+                        <span>姓名</span>
+                        <div>
+                            <input type="text" name="teahcer_name" placeholder="请输入姓名">
+                        </div>
+                    </div>
+                    <div>
+                        <span>课程</span>
+                        <select name="course_type" class="selectObjId">
+                                  {% for parent_course in parent_courses %}
+                                      {% if parent_course.course_set.get_queryset %}
+                                  <optgroup label="{{ parent_course.name }}">
+                                      {% for child_course in parent_course.course_set.get_queryset %}
+                                    <option value ="{{ child_course.id }}" class="click">&nbsp;&nbsp;&nbsp;{{ child_course.course_name }}</option>
+                                      {% endfor %}
+                                  </optgroup>
+                                      {% endif %}
+                                  {% endfor %}
+                        </select>
+                    </div>
+
+                    <input type="submit" value="查询">
+                </form>
+            </div>
+
+
+        </div>
+        <div class="mainContent">
+            <div class="contentTitle">
+                <ul style="margin-bottom: 0px;">
+
+                    <li>
+                        <input type="checkbox" class="all" style="width:20px;height: 20px;vertical-align: middle;">
+                        <span>Num</span><span>姓名</span><span>姓</span><span>名</span><span>教师工号</span><span style="">联系方式</span><span style="margin-left: 20px;">课程</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mainShow">
+                <form action="" id="deleteteacherinfo_form" method="post">
+                    {% csrf_token %}
+                    <ul>
+                        {% for teacher in object_list %}
+                            <li>
+                                <input type="checkbox" name='hxy' value="{{ teacher.id }}" style="width:20px;height: 20px;vertical-align: middle;">
+
+                                <a href="{% url 'teacher_info' teacher.id %}">
+                                    <span>{{ forloop.counter }}</span><span>{{ teacher.name }}</span><span>{{ teacher.first_name }}</span><span style="width: 100px;">{{ teacher.last_name }}</span><span style="width: 100px;">{{ teacher.employee_num }}</span><span style="width: 100px;">{{ teacher.phone }}</span>
+                                    <span style="padding: 0;min-width: 120px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;vertical-align: middle;margin-left: 20px;" class="kuoda">
+                                        {% for teacher_course in teacher.course.get_queryset %}
+                                        <span>{{ teacher_course.course_name }}</span>
+                                    {% endfor %}
+
+                                    </span>
+                                    <div style="display: inline-block;position:relative;width: 130px;">
+                                        <div class="span_add" style="position: absolute;width: 130px;top: -50px; right:0px;display: none;border-radius: 5px;border:1px solid #ccc;background: #fff;">
+{#                                            <span class="only_span" style="display: block;text-align: center;">...</span>#}
+                                        </div>
+                                    </div>
+
+                                </a>
+
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </form>
+            </div>
+            {% include "_pagination.html" %}
+         <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">导入EXCEL文件</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="" enctype="multipart/form-data" id="teacher_import_form">
+                                {% csrf_token %}
+                                <input type="file" name="excel">
+                                <div class="modal-footer" id="upload_teacher_table">
+                                    <li style="list-style: none">下载标准导入表</li>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" id="teacher_import_upload_btn"  style="background: #fcb636;border: none;">上传</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block zhezhao %}
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $("#deleteteacherinfobtn").click(function () {
+             var $InputChecked = $("#deleteteacherinfo_form").find("input[name='hxy']:checked")
+            if($InputChecked.length<1){
+                 $(".del_tip").show(100).delay(1000).hide(100);
+            }else{
+                   var isConfirm=confirm('确定删除所选文件？')
+            if(isConfirm==true){
+                $("#deleteteacherinfo_form").attr("action", "{% url 'deleteteacherinfobatch' %}").submit()
+             }else{
+                for(var i=0;i<$InputChecked.length;i++){
+                    $($InputChecked[i]).attr("checked","checked").prop("checked",false)
+                }
+             }
+            }
+        })
+
+
+
+
+
+        /**编辑教师信息*/
+        $(function () {
+            $("#teacher_edit_btn").click(function () {
+                var $InputChecked = $("#deleteteacherinfo_form").find("input[name='hxy']:checked")
+                if ($InputChecked.length > 1) {
+                    alert("编辑状态下只能选择一条")
+                } else if($InputChecked.length<1){
+                    alert("请选择一条数据进行编辑")
+                }else{
+                    var teacher_id = $InputChecked.val()
+                    var $formData = new FormData()
+                    $formData.append("teacher_id", teacher_id)
+                    $.ajax({
+                        url: "{% url 'teacher_edit' %}",
+                        type: "POST",
+                        data: $formData,
+                        contentType: false,
+                        processData: false,
+                        headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                        success: function (data) {
+                            if (data.status == "success") {
+                                var teacher_id = data.tea_id
+                                var teacher_name = data.tea_name
+                                var teacher_FN = data.tea_FN
+                                var teacher_LN = data.tea_LN
+                                var teacher_num = data.tea_num
+                                var courses = data.courses
+                                $("input[name='edit_tea_id']").val(teacher_id)
+                                $("input[name='edit_tea_name']").val(teacher_name)
+                                $("input[name='edit_tea_FN']").val(teacher_FN)
+                                $("input[name='edit_tea_LN']").val(teacher_LN)
+                                $("input[name='edit_tea_num']").val(teacher_num)
+
+                                var select = document.getElementById("teach_course");
+                                for (i = 0; i < select.length; i++) {
+                                    for (j = 0; j < courses.length; j++) {
+                                        if (select[i].value == courses[j].split('-')[1]) {
+                                            $(select.options[i]).attr("selected", true)
+                                        }
+                                    }
+                                }
+
+
+                            } else {
+                                alert("失败")
+                            }
+                        }
+                    })
+                }
+            })
+
+            /**编辑完教师信息后进行保存*/
+            $("#tea_edit_save_btn").click(function () {
+
+                $.ajax({
+                    url: "{% url 'teacher_edit_save' %}",
+                    type: "POST",
+                    data: {
+                          teacher_id:  $("input[name='edit_tea_id']").val(),
+                          teacher_name:  $("input[name='edit_tea_name']").val(),
+                          FN: $("input[name='edit_tea_FN']").val(),
+                          LN: $("input[name='edit_tea_LN']").val(),
+                          teacher_num: $("input[name='edit_tea_num']").val(),
+                          teacher_courses: $("#teach_course").val()
+                    },
+                    headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                    success: function (data) {
+                        if (data.status == "success") {
+                            alert("保存成功");
+                            location.href = "{% url 'teacher' %}"
+                        } else {
+                            alert("保存失败")
+                        }
+
+                    }
+
+
+                })
+
+
+            })
+
+            /**教师列表的编辑按钮*/
+            $(".tea_edit_btn").click(function () {
+                var teacher_id= $(this).attr("teacher_id")
+                $.ajax({
+                    url:"{% url 'teacher_edit' %}",
+                    type:"POST",
+                    data:{
+                        "teacher_id":teacher_id
+                    },
+                    headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                         if (data.status == "success") {
+                                var teacher_id = data.tea_id
+                                var teacher_name = data.tea_name
+                                var teacher_FN = data.tea_FN
+                                var teacher_LN = data.tea_LN
+                                var teacher_num = data.tea_num
+                                var courses = data.courses
+                                $("input[name='edit_tea_id']").val(teacher_id)
+                                $("input[name='edit_tea_name']").val(teacher_name)
+                                $("input[name='edit_tea_FN']").val(teacher_FN)
+                                $("input[name='edit_tea_LN']").val(teacher_LN)
+                                $("input[name='edit_tea_num']").val(teacher_num)
+
+                                var select = document.getElementById("teach_course");
+                                for (i = 0; i < select.length; i++) {
+                                    for (j = 0; j < courses.length; j++) {
+                                        if (select[i].value == courses[j].split('-')[1]) {
+                                            $(select.options[i]).attr("selected", true)
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                alert("失败")
+                            }
+                    }
+
+
+                })
+            })
+
+            /**添加教师信息*/
+            $("#tea_add_btn").click(function () {
+                 var tex =/^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/
+                  var htl =/^1[0-9]{10}$/
+                  var str=$(this).parents('.addListButton').siblings('ul').find('.phone_number').val()
+
+                {#约束联系方式#}
+                if(tex.test(str)|| htl.test(str)){
+                      $(this).parents('.addListButton').siblings('ul').find('.TorF').addClass('alarm')
+                }
+                else{
+                     $(this).parents('.addListButton').siblings('ul').find('.TorF').removeClass('alarm')
+                 }
+
+                 {#姓和名必须匹配#}
+                 if(tex.test(str)|| htl.test(str) && ($("input[name='tea_add_name']").val()==$("input[name='tea_add_FN']").val()+$("input[name='tea_add_LN']").val())){
+                        var $formData = new FormData()
+                        $formData.append("name", $("input[name='tea_add_name']").val())
+                        $formData.append("FN", $("input[name='tea_add_FN']").val())
+                        $formData.append("LN", $("input[name='tea_add_LN']").val())
+                        $formData.append("emp", $("input[name='tea_add_emp']").val())
+
+                        var tea_add_course_name=$(".tea_add_course_name")
+                        var course_id_list=[]
+                        for(var i=0;i<tea_add_course_name.length;i++){
+                            course_id_list.push($(tea_add_course_name[i]).val())
+                        }
+
+                        if($(".tea_add_course_name").val()){
+                            $.ajax({
+                            url: "{% url 'add_save_tea' %}",
+                            type: "POST",
+                            async: false,
+                            traditional: true,
+                            data: {
+                                "name":$("input[name='tea_add_name']").val(),
+                                "FN":$("input[name='tea_add_FN']").val(),
+                                "LN":$("input[name='tea_add_LN']").val(),
+                                "emp": $("input[name='tea_add_emp']").val(),
+                                "phone":$("input[name=tea_add_phone]").val(),
+                                "course_id_list":JSON.stringify(course_id_list),
+                            },
+                            headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                            success: function (data) {
+                                if (data.status == "success") {
+                                     $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'teacher' %}"
+                         });
+                                } else {
+                                     $(".fail_tip").show(100).delay(1000).hide(100);
+                                }
+
+                            }
+                        })
+                        }
+                 }else{
+                     $(".fail_tip").show(100).delay(1000).hide(100);
+                 }
+
+
+
+
+
+            })
+
+            /**取消添加教师清空input*/
+            $("#tea_cancel_btn").click(function () {
+               location.href="{% url 'teacher' %}"
+            })
+
+            /**单条删除教师信息*/
+            $(".tea_del").click(function () {
+                var teacher_id=$(this).attr("teacher_id")
+                $.ajax({
+                    url:"{% url 'deleteteacherinfo' %}",
+                    type:"POST",
+                    data:{
+                        "teacher_id":teacher_id
+                    },
+                    headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                      success: function (data) {
+                        if (data.status == "success") {
+                            alert("删除成功");
+                            location.href = "{% url 'teacher' %}"
+                        } else {
+                            alert("删除失败")
+                        }
+
+                    }
+                })
+            })
+        })
+    /**导出教师信息*/
+    $("#emit_btn_teach").click(function () {
+         var $excel_id_list = [];
+                $("input[name='hxy']:checked").each(function () {
+                    $excel_id_list.push($(this).val());
+                });
+
+{#                直接点击导出，如果点击确定，则下载全部的数据#}
+
+                if ($("input[name='hxy']:checked").length === 0) {
+                    var result = confirm("下载全部数据？")
+                    if (result){
+                        $.ajax({
+                        type: 'post',
+                        url: "{% url 'teach_excel_out' %}",
+                        async: false,
+                        data: {
+                            'excel_id_list': JSON.stringify($excel_id_list),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        traditional: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'teach_excel_emit' %}"
+                            } else {
+                                alert("导出操作失败")
+                            }
+                        }
+                    });
+                    }else{
+                        $(".export_tip").show(100).delay(1000).hide(100);
+                    }
+                } else {
+                    $("#teacher_export_btn").click(function () {
+                        $.ajax({
+                        type: 'post',
+                        url: "{% url 'teach_excel_out' %}",
+                        async: false,
+                        data: {
+                            'excel_id_list': JSON.stringify($excel_id_list),
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        traditional: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                location.href = "{% url 'teach_excel_emit' %}"
+                            } else {
+                                alert("导出操作失败")
+                            }
+                        }
+                    });
+                    })
+
+                }
+    })
+
+    /**下载标准的教师导入表*/
+    $("#upload_teacher_table").click(function () {
+       location.href="{% url 'upload_teacher_table' %}"
+
+    })
+
+    /**教师信息的导入ajax*/
+    $("#teacher_import_upload_btn").click(function () {
+         $.ajax({
+                url: "{% url 'teach_excel_import' %}",
+                type: "POST",
+                data: new FormData($("#teacher_import_form")[0]),  // 必须加[0]
+                traditional:true, //为必须内容 　　
+                contentType: false,
+                processData: false,
+                headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                success: function (data) {
+                    if (data.status === "ok") {
+                        alert("导入成功！")
+                        location.href="{% url 'teacher' %}"
+                    } else {
+                        alert(data.msg)
+                    }
+                }
+            });
+    })
+
+    /**点击教师X清空input*/
+    $("#teacheraddclose").click(function () {
+        location.href="{% url 'teacher' %}"
+    })
+
+
+    /** 点击省略号*/
+
+
+        var shenList=$('.kuoda')
+
+       for(var i=0;i<shenList.length;i++ ){
+
+
+            $(shenList[i]).mouseover(function (e) {
+                 var span_List=$(this).find('span')
+                for(var j=0;j<span_List.length;j++){
+                    if(j!=0){
+                        var span_clone=$(span_List[j]).clone()
+                        $(this).siblings('div').find('.span_add').append(span_clone)
+                        $(this).siblings('div').find('.span_add').css('display',"block")
+                    }
+                }
+            })
+            $(shenList[i]).mouseout(function (e) {
+                       $(this).siblings('div').find('.span_add').find('span').remove()
+                        $(this).siblings('div').find('.span_add').css('display',"none")
+            })
+       }
+    </script>
+
+{% endblock %}

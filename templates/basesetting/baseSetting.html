@@ -1,0 +1,962 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="baseSetting">
+        <div class="baseSettingInformation">
+            <div class="baseLeftSide">
+                <div class="basetop"
+                     style="font-size: 16px;padding: 15px 0px 15px 30px;border-bottom:1px solid #ccc;color:#fff;">
+                    框架结构
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-circle-arrow-right navShow " style="transform: rotate(180deg)"></i>
+                </div>
+                <div class="navfather">
+                    <div class="navMenubox">
+                        <div id="slimtest1">
+                            <ul class="navMenu">
+                                <li class="open">
+                                    <a href="javascript:;" class="afinve">
+                                        <i class="glyphicon glyphicon-menu-down" style=" vertical-align: middle;"></i>
+                                        <span class="total_course">课程</span>
+                                    </a>
+                                    <ul class="sub-menu" id="parent_course_info">
+                                        {% for parent_course in parent_courses %}
+                                            <li>
+                                                <a href="javascript:;" class="afinve">
+                                                    <span parent_course="{{ parent_course.id }}" class="parent_course_tag">{{ parent_course }}</span>
+
+                                                </a>
+
+                                                <ul class="sub-menu">
+                                                    {% for child_course in parent_course.course_set.get_queryset %}
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                <span>{{ child_course }}</span>
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="navMenu">
+                                <li>
+                                    <a href="javascript:;" class="afinve leixing">
+                                        <i class="glyphicon glyphicon-menu-down" style=" vertical-align: middle;"></i>
+                                        <span class="base_setting_type">类型</span>
+
+                                    </a>
+                                    <ul class="sub-menu" id="base_type_info">
+                                        {% for course_type in course_types %}
+
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="course_type_tag" course_type="{{ course_type.id }}">{{ course_type }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="baseContent" style="height: 100%;overflow: auto;">
+                <div class="baseContentTitle">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" style="background:#fcb636 url(/static/img/add.png) 0px center no-repeat;font-size: 14px;padding-left: 20px;">
+                            添加
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="addClass">添加课程</li>
+                            <li class="addKinds">添加类型</li>
+                        </ul>
+                    </div>
+
+                    <input type="button" value="删除" id="base_del" style="background:#fcb636 url(/static/img/delete.png) 0px center no-repeat;font-size: 14px;padding-left: 20px;background-size: 24px 24px;">
+                </div>
+                <div class="mainShow">
+                    <div class="mainShowTitle">
+                        <input type="checkbox" style="width:20px;height: 20px;" class="clickALL">
+                        <span id="course_type_tag_name" style="margin-left: 15px;">课程</span>
+                    </div>
+                    <form action="" method="post" id="base_form">{% csrf_token %}
+                    <ul id="detail">
+                        {% for parent_course in parent_courses %}
+                          <ul>
+                                <li style="margin-top: 20px;border-bottom: 1px solid #ccc;" class="parent_Li">
+                            <input type="checkbox" name="parent_course_detail" child_parent="0" value="{{ parent_course.id }}" class="parent_course_detail">
+                            <input type="text" readonly="readonly" class="base_edit" value="{{ parent_course.name }}"/>
+                            <img src="/static/img/right.png" style="width:30px;display:none" class="true">
+                            <img src="/static/img/wrong.png" style="width:30px;display:none" class="false">
+                       </li>
+                            {% for children_course in parent_course.course_set.get_queryset %}
+                        <li class="baseAdd">
+                              <input type="checkbox" name="children_course_detail" child_parent="1" value="{{ children_course.id }}" class="children_course_detail">
+                              <input type="text" readonly="readonly" value="{{ children_course.course_name }}"/>
+                              <img src="/static/img/right.png" style="width:30px;display:none" class="true">
+                              <img src="/static/img/wrong.png" style="width:30px;display:none" class="false">
+                          </li>
+                            {% endfor %}
+                          </ul>
+                        {% endfor %}
+                    </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+  <i class="glyphicon glyphicon-circle-arrow-right navShow changes"></i>
+    </div>
+
+    </div>
+    <!-- 添加课程 -->
+    <div id="basecover"></div>
+    <div id="basemodal">
+        <div id="baseclose">X</div>
+        <div class="modal_content">
+            <p>添加课程</p>
+            <form action="">
+                <div class="top">
+                    <span>
+                        课程名称
+                    </span>
+                    &nbsp;&nbsp;
+                    <input type="text" name="parent_course_name" placeholder="&nbsp;*&nbsp;必填">
+                </div>
+                <div class="bottom">
+                    <span>
+                        子课程名称
+                    </span>
+                    &nbsp;&nbsp;
+                    <input type="text" name="children_course_name" >
+                </div>
+            </form>
+
+            <div class="Button">
+                <input type="button" value="取消" id="course_cancel_btn">
+                <input type="button" value="保存" id="course_save_btn">
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加类型 -->
+    <div id="kindscover"></div>
+    <div id="kindsmodal">
+        <div id="kindsclose">X</div>
+        <div class="modal_content">
+            <p>添加类型</p>
+            <form action="">
+                <div class="top">
+                    <span>
+                        类型名称
+                    </span>
+                    &nbsp;&nbsp;
+                     <input type="text" style="display: none">
+                    <input type="text" name="add_course_type" placeholder="&nbsp;*&nbsp;必填">
+                </div>
+            </form>
+
+            <div class="Button">
+                <input type="button" value="取消" id="cancel_course_type_btn">
+                <input type="button" value="保存" id="add_course_type_btn">
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+    /**添加课程*/
+    $("#course_save_btn").click(function(){
+        var parent_course_name=$("input[name='parent_course_name']").val()
+        var children_course_name=$("input[name='children_course_name']").val()
+        $.ajax({
+            url:"{% url 'addbasecourse' %}",
+            data:{
+                "parent_course_name":parent_course_name,
+                "children_course_name":children_course_name,
+            },
+            type:"POST",
+            headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+            success:function (data) {
+                if(data.status=="success"){
+                     $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'basesettings' %}"
+                         });
+                }else{
+                    $(".fail_tip").show(100).delay(1000).hide(100);
+                }
+            }
+        })
+    })
+
+    /**添加课程类型*/
+    $("#add_course_type_btn").bind("click",function () {
+        add_course_type=$("input[name='add_course_type']").val()
+        $.ajax({
+            url:"{% url 'coursetype' %}",
+            type:"POST",
+            data:{
+                "add_course_type":add_course_type,
+            },
+            headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+            success:function (data) {
+                if(data.status=="success"){
+                     $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'basesettings' %}"
+                         });
+                }else{
+                    $(".fail_tip").show(100).delay(1000).hide(100);
+                }
+            }
+        })
+    })
+
+    /**点击课程*/
+    $(".navMenubox").on('click','li ul li .parent_course_tag',function () {
+
+          $("#course_type_tag_name").text("课程")
+        $("#detail li").remove()
+        $.ajax({
+            url:"{% url 'base_detail' %}",
+            type:"POST",
+            data:{
+                "parent_course_id":$(this).attr("parent_course")
+            },
+            headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+            success:function (data) {
+                if (data.status == "success") {
+                    var parent_id=data.parent_id
+                    var parent_name=data.parent_name
+                   var childrens= data.children_list
+
+                    $("#detail").append("<li>\n" +
+                        "                            <input type=\"checkbox\" name=\"parent_course_detail\" child_parent=\"0\" value=\""+parent_id+"\" class=\"parent_course_detail childrenList\">\n" +
+                        "                            <input type=\"text\" readonly=\"readonly\" class=\"base_edit\" value=\""+parent_name+"\"/>\n" +
+                        "                            <img src=\"/static/img/right.png\"/ style=\"width:30px;display:none\" class=\"true\">\n" +
+                        "                            <img src=\"/static/img/wrong.png\"/ style=\"width:30px;display:none\" class=\"false\">\n" +
+                        "                        </li>")
+                    for(var i=0;i<childrens.length;i++){
+                       $("#detail").append(" <li>\n" +
+                           "                            <input type=\"checkbox\" name=\"children_course_detail\" child_parent=\"1\" value=\""+childrens[i].children_id+"\" class=\"children_course_detail\">\n" +
+                           "                            <input type=\"text\" readonly=\"readonly\" value=\""+childrens[i].children_course_name+"\"/>\n" +
+                           "                            <img src=\"/static/img/right.png\"/ style=\"width:30px;display:none\" class=\"true\">\n" +
+                           "                            <img src=\"/static/img/wrong.png\"/ style=\"width:30px;display:none\" class=\"false\">\n" +
+                           "                        </li>")
+
+
+
+                    }
+                } else {
+                    alert("failed")
+                }
+                  $('#detail').on('click','.childrenList',function () {
+                        if ($(this).is(':checked') == true) {
+                                $(".baseContent").find('#detail input[type="checkbox"]').attr("checked", "checked").prop('checked', true);
+                            } else {
+                                $(".baseContent").find('#detail  input[type="checkbox"]').attr("checked", "checked").prop('checked', false);
+                            }
+                    })
+
+
+                       /**双击编辑 */
+               var double= $('#base_form #detail li input[type="text"]')
+
+                for(var i=0;i<double.length;i++){
+                      $( double[i]).dblclick(function () {
+                           var firstText=$(this).val()
+                         $(this).attr('readOnly',false).siblings('img').css('display','inline-block')
+                          $(this).siblings('.true').click(function () {
+                              //属性child_parent，0为父，1为子
+                              if($(this).siblings('input[type="checkbox"]').attr("child_parent")=="0"){
+                                    //修改父课程名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_parent_course_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "parent_course_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "parent_course_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                        $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+
+                              }else{
+                                    //修改子课程名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_child_course_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "child_course_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "child_course_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                        $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+                              }
+                                 $(this).siblings('input[type="text"]').attr('readOnly',true)
+                                 $(this).css('display','none').siblings('.false').css('display','none')
+                          })
+
+                            $(this).siblings('.false').click(function () {
+                                $(this).siblings('input[type="text"]').attr('readOnly',true).val(firstText);
+                                $(this).css('display','none').siblings('.true').css('display','none')
+
+                          })
+                    })
+                }
+            }
+        })
+
+    })
+
+    /**点击类型*/
+        $(".navMenubox").on('click','li ul li .course_type_tag',function () {
+        $("#course_type_tag_name").text("类型")
+         $("#detail li").remove()
+         $.ajax({
+            url:"{% url 'base_type' %}",
+            type:"POST",
+            data:{
+                "course_type_id":$(this).attr("course_type")
+            },
+            {#contentType:false,#}
+            {#processData:false,#}
+            headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+            success:function (data) {
+                if (data.status == "success") {
+                    var course_type_id=data.course_type_id
+                    var course_type_name=data.course_type_name
+                   var childrens= data.children_list
+                    $("#detail").append("<li>\n" +
+                        "                            <input type=\"checkbox\" name=\"course_type_detail\" value=\""+course_type_id+"\" class=\"parent_course_detail\">\n" +
+                        "                            <input type=\"text\" readonly=\"readonly\" value=\""+course_type_name+"\"/>\n" +
+                        "                            <img src=\"/static/img/right.png\"/ style=\"width:30px;display:none\" class=\"true\">\n" +
+                        "                            <img src=\"/static/img/wrong.png\"/ style=\"width:30px;display:none\" class=\"false\">\n" +
+                        "                        </li>")
+
+
+
+                } else {
+                    alert("failed")
+                }
+                        /**双击编辑 */
+               var double= $('#base_form #detail li input[type="text"]')
+
+                for(var i=0;i<double.length;i++){
+                      $( double[i]).dblclick(function () {
+                          var firstText=$(this).val()
+                         $(this).attr('readOnly',false).siblings('img').css('display','inline-block')
+                          $(this).siblings('.true').click(function () {
+                               //修改课程类型名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_course_type_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "course_type_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "course_type_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                         $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve leixing\'><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+                                 $(this).siblings('input[type="text"]').attr('readOnly',true)
+                                 $(this).css('display','none').siblings('.false').css('display','none')
+                          })
+
+                            $(this).siblings('.false').click(function () {
+                                $(this).siblings('input[type="text"]').attr('readOnly',true).val(firstText);
+                                $(this).css('display','none').siblings('.true').css('display','none')
+
+                          })
+                    })
+                }
+            }
+        })
+    })
+
+
+    /**删除基础课程*/
+    $("#base_del").click(function () {
+        var list_checked=$("#detail").find("input[type='checkbox']:checked")
+        if(list_checked.length>0){
+            var isConfirm=confirm("确定要删除所选数据？")
+            if(isConfirm==true){
+                 $("#base_form").attr("action","{% url 'base_del' %}").submit()
+            }else{
+                for(var i=0;i<list_checked.length;i++){
+                    $(list_checked[i]).attr("checked", "checked").prop('checked', false);
+                }
+            }
+        }else{
+            $(".del_tip").show(100).delay(1000).hide(100);
+        }
+
+
+    })
+
+    /**取消添加课程清空input*/
+    $("#course_cancel_btn").click(function () {
+        $("input[name='parent_course_name']").val("")
+        $("input[name='children_course_name']").val("")
+        $("input[name='children_course_hours']").val("")
+    })
+
+     /**取消添加课程类型清空input*/
+    $("#cancel_course_type_btn").click(function () {
+        $("input[name='add_course_type']").val("")
+    })
+
+  /**点击添加课程X关闭清空input*/
+  $("#baseclose").click(function () {
+       $("input[name='parent_course_name']").val("")
+       $("input[name='children_course_name']").val("")
+       $("input[name='children_course_hours']").val("")
+  })
+
+  /**点击添加类型X关闭清空input*/
+  $("#kindsclose").click(function () {
+      $("input[name='add_course_type']").val("")
+  })
+
+    /**加载页面时执行*/
+    window.onload=function (ev) {
+
+              /**双击编辑课程 */
+               var double= $('#base_form #detail li input[type="text"]')
+
+                for(var i=0;i<double.length;i++){
+                      $( double[i]).dblclick(function () {
+                           var firstText=$(this).val()
+                         $(this).attr('readOnly',false).siblings('img').css('display','inline-block')
+                          $(this).siblings('.true').click(function () {
+                              //属性child_parent，0为父，1为子
+                              if($(this).siblings('input[type="checkbox"]').attr("child_parent")=="0"){
+                                    //修改父课程名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_parent_course_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "parent_course_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "parent_course_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                        $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'></i><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+
+                              }else{
+                                    //修改子课程名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_child_course_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "child_course_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "child_course_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                        $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+                              }
+                                 $(this).siblings('input[type="text"]').attr('readOnly',true)
+                                 $(this).css('display','none').siblings('.false').css('display','none')
+                          })
+
+                            $(this).siblings('.false').click(function () {
+                                $(this).siblings('input[type="text"]').attr('readOnly',true).val(firstText);
+                                $(this).css('display','none').siblings('.true').css('display','none')
+
+                          })
+                    })
+                }
+    }
+
+    /**点击总类型*/
+    $(".base_setting_type").click(function () {
+         $("#course_type_tag_name").text("类型")
+         $("#detail li").remove()
+         $.ajax({
+            	    url:"{% url 'get_course_types' %}",
+                    type:"POST",
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                        if(data.status=="success"){
+                          var course_types=data.course_type_total
+                            for(var i=0;i<course_types.length;i++){
+                                $("#detail").append("<li>\n" +
+                        "                            <input type=\"checkbox\" name=\"course_type_detail\" value=\""+course_types[i].course_type_id+"\" class=\"parent_course_detail\">\n" +
+                        "                            <input type=\"text\" readonly=\"readonly\" value=\""+course_types[i].course_type_name+"\"/>\n" +
+                        "                            <img src=\"/static/img/right.png\"/ style=\"width:30px;display:none\" class=\"true\">\n" +
+                        "                            <img src=\"/static/img/wrong.png\"/ style=\"width:30px;display:none\" class=\"false\">\n" +
+                        "                        </li>")
+                            }
+
+                        }else{
+                            alert("fail")
+                        }
+
+                                  /**双击编辑 */
+               var double= $('#base_form #detail li input[type="text"]')
+
+                for(var i=0;i<double.length;i++){
+                      $( double[i]).dblclick(function () {
+                          var firstText=$(this).val()
+                         $(this).attr('readOnly',false).siblings('img').css('display','inline-block')
+                          $(this).siblings('.true').click(function () {
+                               //修改课程类型名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_course_type_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "course_type_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "course_type_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                         $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+                                 $(this).siblings('input[type="text"]').attr('readOnly',true)
+                                 $(this).css('display','none').siblings('.false').css('display','none')
+                          })
+
+                            $(this).siblings('.false').click(function () {
+                                $(this).siblings('input[type="text"]').attr('readOnly',true).val(firstText);
+                                $(this).css('display','none').siblings('.true').css('display','none')
+
+                          })
+                    })
+                }
+
+
+                    }
+        })
+    })
+
+    /**点击总课程*/
+    $(".navMenu").on('click','li a .total_course',function (){
+         $("#course_type_tag_name").text("课程")
+        $("#detail li").remove()
+
+         $.ajax({
+            	    url:"{% url 'get_courses' %}",
+                    type:"POST",
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                        if(data.status=="success"){
+                            var parent_courses=data.parent_course_total
+                            for(var t=0;t<parent_courses.length;t++){
+
+                                $("#detail").append("<li style=\"margin-top: 20px;border-bottom: 1px solid #ccc;\" class=\"p_List\" >\n" +
+                        "                            <input type=\"checkbox\" name=\"parent_course_detail\" child_parent=\"0\" value=\""+parent_courses[t].parent_course_id+"\" class=\"parent_course_detail\">\n" +
+                        "                            <input type=\"text\" readonly=\"readonly\" class=\"base_edit\" value=\""+parent_courses[t].parent_course_name+"\"/>\n" +
+                        "                            <img src=\"/static/img/right.png\"/ style=\"width:30px;display:none\" class=\"true\">\n" +
+                        "                            <img src=\"/static/img/wrong.png\"/ style=\"width:30px;display:none\" class=\"false\">\n" +
+                        "                        </li>")
+                    for(var i=0;i<parent_courses[t].parent_childrens.length;i++){
+                       $("#detail").append(" <li>\n" +
+                           "                            <input type=\"checkbox\" name=\"children_course_detail\" child_parent=\"1\" value=\""+parent_courses[t].parent_childrens[i].children_course_id+"\" class=\"children_course_detail\">\n" +
+                           "                            <input type=\"text\" readonly=\"readonly\" value=\""+parent_courses[t].parent_childrens[i].children_course_name+"\"/>\n" +
+                           "                            <img src=\"/static/img/right.png\"/ style=\"width:30px;display:none\" class=\"true\">\n" +
+                           "                            <img src=\"/static/img/wrong.png\"/ style=\"width:30px;display:none\" class=\"false\">\n" +
+                           "                        </li>")
+                    }
+
+
+                            }
+                        }else{
+                            alert("fail")
+                        }
+                          /** 点击课程的样式*/
+                              var p_List=$('#detail').find('.p_List')
+                              for(var i=0;i<p_List.length;i++){
+                                  $(p_List[i]).find('.parent_course_detail').click(function () {
+                                      if($(this).is(':checked') == true){
+                                            $(this).parents('.p_List').nextUntil('li.p_List').children('input[type="checkbox"]').attr("checked", "checked").prop('checked', true);
+                                      }else{
+                                           $(this).parents('.p_List').nextUntil('li.p_List').children('input[type="checkbox"]').attr("checked", "checked").prop('checked', false);
+                                      }
+
+                                  })
+                              }
+
+
+
+
+
+                                /**双击编辑 */
+               var double= $('#base_form #detail li input[type="text"]')
+
+                for(var i=0;i<double.length;i++){
+                      $( double[i]).dblclick(function () {
+                           var firstText=$(this).val()
+                         $(this).attr('readOnly',false).siblings('img').css('display','inline-block')
+                          $(this).siblings('.true').click(function () {
+                              //属性child_parent，0为父，1为子
+                              if($(this).siblings('input[type="checkbox"]').attr("child_parent")=="0"){
+                                    //修改父课程名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_parent_course_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "parent_course_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "parent_course_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                        $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+
+                              }else{
+                                    //修改子课程名
+                                    if($(this).siblings('input[type="text"]').val()!=""){
+                                         $.ajax({
+                                                url:"{% url 'update_child_course_name' %}",
+                                                type:"POST",
+                                                data:{
+                                                     "child_course_id":$(this).siblings('input[type="checkbox"]').val(),
+                                                     "child_course_name":$(this).siblings('input[type="text"]').val(),
+                                                },
+                                                headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                                                success:function (data) {
+                                                    if(data.status=="success"){
+                                                        $("#parent_course_info li").remove()
+                                                        $("#base_type_info li").remove()
+
+                                                        var parent_courses=data.parent_courses
+                                                        var course_types=data.course_types
+
+                                                        var pa_str=""
+                                                        for(var i=0;i<parent_courses.length;i++){
+                                                            pa_str="<li><a href=\'javascript:;\' class=\'afinve\'><i class=\'glyphicon glyphicon-menu-down\' style=\' vertical-align: middle;\'></i><span parent_course=\'"+parent_courses[i].parent_course_id+"\' class=\'parent_course_tag\'>"+parent_courses[i].parent_course_name+"</span></a><ul class=\'sub-menu\'>"
+                                                            for(var j=0;j<parent_courses[i].parent_childrens.length;j++){
+                                                                var ch_str="<li><a href=\'javascript:;\'><span>"+parent_courses[i].parent_childrens[j].children_course_name+"</span></a></li>"
+                                                                pa_str+=ch_str
+                                                            }
+                                                            var fin_str="</ul></li>"
+                                                            pa_str+=fin_str
+                                                            $("#parent_course_info").append(pa_str)
+                                                        }
+
+                                                        for(var i=0;i<course_types.length;i++){
+                                                                                    $("#base_type_info").append(" <li>\n" +
+                                                                                        "                                                <a href=\"javascript:;\">\n" +
+                                                                                        "                                                    <span class=\"course_type_tag\" course_type=\""+course_types[i].course_type_id+"\">"+course_types[i].course_type_name+"</span>\n" +
+                                                                                        "                                                </a>\n" +
+                                                                                        "                                            </li>")
+
+                                                                                }
+                                                    }else{
+                                                        alert("失败")
+                                                    }
+                                                }
+                                               })
+                                  }
+                              }
+                                 $(this).siblings('input[type="text"]').attr('readOnly',true)
+                                 $(this).css('display','none').siblings('.false').css('display','none')
+                          })
+
+                            $(this).siblings('.false').click(function () {
+                                $(this).siblings('input[type="text"]').attr('readOnly',true).val(firstText);
+                                $(this).css('display','none').siblings('.true').css('display','none')
+
+                          })
+                    })
+                }
+
+                    }
+        })
+    })
+/** 加载页面的样式*/
+     var parentList= $('#detail').find('.parent_Li')
+    for(var i=0;i<parentList.length;i++){
+        $(parentList[i]).find('.parent_course_detail').click(function () {
+             if ($(this).is(':checked') == true) {
+                 $(this).parent('.parent_Li').siblings('.baseAdd').find('input[type="checkbox"]').attr("checked", "checked").prop('checked', true);
+             } else {
+            $(this).parent('.parent_Li').siblings('.baseAdd').find('input[type="checkbox"]').attr("checked", "checked").prop('checked', false);
+        }
+
+        })
+    }
+
+ /** nav的展开收缩*/
+    $('.afinve').click(function () {
+        $(this).siblings('#parent_course_info').toggle(200,function () {
+               if($('.sub-menu').css('display')=='block'){
+                   $(this).siblings('.afinve').find('i').attr("class", "glyphicon glyphicon-menu-down");
+           }else{
+            $(this).siblings('.afinve').find('i').attr("class", "glyphicon glyphicon-menu-up");
+          }
+        })
+
+
+    })
+    $('.leixing').click(function () {
+        $(this).siblings('#base_type_info').toggle(200,function () {
+                    if($('#base_type_info').css('display')=='block'){
+
+                   $(this).siblings('.leixing').find('i').attr("class", "glyphicon glyphicon-menu-down");
+                        {#console.log($(this).siblings('.leixing').find('i').attr('class'))#}
+           }else{
+            $(this).siblings('.leixing').find('i').attr("class", "glyphicon glyphicon-menu-up");
+            console.log($(this).siblings('.leixing').find('i').attr('class'))
+          }
+        })
+
+    })
+
+
+
+    /** 点击课程的checkbox*/
+      $('.clickALL').click(function () {
+            if ($(this).is(':checked') == true) {
+                 $(this).parent('.mainShowTitle').siblings('#base_form').find('input[type="checkbox"]').attr("checked", "checked").prop('checked', true);
+             } else {
+                $(this).parent('.mainShowTitle').siblings('#base_form').find('input[type="checkbox"]').attr("checked", "checked").prop('checked', false);
+            }
+      })
+    </script>
+{% endblock %}

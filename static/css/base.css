@@ -1,0 +1,100 @@
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+select {
+  margin: 0;
+  padding: 0;
+}
+input:focus {
+  outline:none;
+}
+body,
+input,
+textarea,
+select,
+button,
+table {
+  font-size: 14px;
+  line-height: 1.25em;
+}
+html{
+  height: 100%;
+}
+body {
+  height: 100%;
+  min-width: 320px;
+  font-size: 1em;
+  font-family: 'microsoft yahei', Verdana, Arial, Helvetica, sans-serif;
+  color: #000;
+  -webkit-text-size-adjust: none;
+  background: #f2f2f2;
+}
+img,
+fieldset {
+  border: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+em,
+address {
+  font-style: normal;
+}
+a {
+  color: #000 ;
+  text-decoration: none;
+}
+table {
+  border-collapse: collapse;
+}
+#clear {
+  clear: both;
+}
+#clear:after {
+  display: block;
+  clear: both;
+  margin-top: -1px;
+  content: '';
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.dnone {
+  display: none;
+}
+.font_size {
+  font-size: 14px;
+}
+[class^="el-icon-fa"],
+[class*=" el-icon-fa"] {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome !important;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

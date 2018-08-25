@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+        <div class="settingAdd">
+            <div class="editNumber">
+               <form action="" method="post" id="edit_user_form">{% csrf_token %}
+                <p class="edit">
+                    <a href="{% url 'settings' %}"> <img class="editAll" src="/static/img/return.png" alt=""></a>编辑人员
+                </p>
+                <div class="compire">
+                    <ul>
+                        <input type="hidden" name="hiddle_user_id" value="{{ user_profile.id }}">
+                        <li>
+                            <span>登录名</span>
+                            <input type="text" placeholder="&nbsp;(用户名只能由2-15个英文字母或数字组成。如michael88)" value="{{ user_profile.username }}" name="username">
+                        </li>
+                        <li>
+                            <span>密码</span>
+                            <input type="password" placeholder="&nbsp;(请输入密码)" name="pwd">
+                        </li>
+                        <li>
+                            <span>确认密码</span>
+                            <input type="text" placeholder="&nbsp;(请再次输入密码)" name="ack_pwd">
+                        </li>
+                        <li>
+                            <span>姓名</span>
+                            <input type="text" placeholder="&nbsp;(请输入真实姓名)" value="{{ user_profile.real_name }}" name="real_name">
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="userCompire">
+{#                    <p>下次登录必须修改密码</p>#}
+{#                    <p class="gray">强制用户下次登录时必须修改密码</p>#}
+{#                    <ul>#}
+{#                        <li>#}
+{#                            <input type="radio" name="must_change_pwd" value="0" {% ifequal user_profile.must_change_pwd 0 %} checked {% endifequal %}>#}
+{#                            <span>是</span>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" name="must_change_pwd" value="1" {% ifequal user_profile.must_change_pwd 1 %}checked{% endifequal %}>#}
+{#                            <span>否</span>#}
+{#                        </li>#}
+{#                    </ul>#}
+                <!--是否启用-->
+                {% ifequal user_profile.is_active 0 %}
+                    <p class="gray">是否启用该用户</p>
+                    <ul>
+                        <li>
+                            <input type="radio" name="active_status" value="1" {% ifequal user_profile.is_active 1 %} checked {% endifequal %}>
+                            <span>是</span>
+                        </li>
+                        <li>
+                            <input type="radio" name="active_status" value="0" {% ifequal user_profile.is_active 0 %}checked{% endifequal %}>
+                            <span>否</span>
+                        </li>
+                    </ul>
+                {% endifequal %}
+                <!--是否启用end-->
+                    <div class="userButton">
+                        <a href="{% url 'settings' %}">
+                        <input type="button" value="取消" style="background: #ececec;color:#000; ">
+                        </a>
+                        <input type="button" value="保存" id="user_edit_save" style="background: #fcb636;color:#fff;">
+                    </div>
+                </div>
+               </form>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+    $("#user_edit_save").click(function () {
+        $editFormData = new FormData(edit_user_form);
+        $.ajax({
+            url:"{% url 'edit_user' %}",
+            type:"POST",
+            data:$editFormData,
+            contentType: false,
+            processData:false,
+            headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+            success:function (data) {
+                if(data.status=="success"){
+                      $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'settings' %}"
+                         });
+                }else{
+                     $(".fail_tip").show(100).delay(1000).hide(100);
+                }
+
+            }
+        })
+    })
+    </script>}
+{% endblock %}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>橙果教育</title>
+    <link rel="stylesheet" href="{% static 'outlib/bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'outlib/jquery/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+<div class="box">
+    <div class="login-box">
+        <div class="login-title text-center">
+            <h1>
+                <small style="color: #fff;">登录</small>
+            </h1>
+        </div>
+        <div class="login-content ">
+            <div class="form">
+                <form action="{% url 'log_in' %}" method="post" id="login_form" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" id="username" name="username"
+                                       class="form-control" placeholder="用户名">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" id="password" name="password"
+                                       class="form-control" placeholder="密码">
+                            </div>
+                            <span id="error_msg" style="color: red"></span>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class=" ">
+                            <button type="button" id="login_btn" class="btn btn-sm btn-info" style="width: 92%; margin-left: 16px;"> 登录
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6 link">
+                            <p class="text-center remove-margin">
+                                <input type="checkbox" name="auto_login">
+                                <a href="javascript:void(0)">
+                                    <small>下次自动登录</small>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-xs-6 link">
+                            <p class="text-center remove-margin" id="forgetPwd">
+                                <a href="javascript:void(0)">
+                                    <small>忘记密码?</small>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="modal fade" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Modal title</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>One fine body&hellip;</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        });
+
+        $("#forgetPwd").click(function () {
+            alert("请联系超级管理员！")
+        });
+
+        $("#login_btn").click(function () {
+            var $login_form = $("#login_form");
+            var $formData = $login_form.serialize();
+            $.ajax({
+                url: "{% url 'log_in' %}",
+                type: "POST",
+                data: $formData,
+                headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                beforeSend: function (XMLHttpRequest) {
+                    $login_form.val("登录中...");
+                    $login_form.attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    {#                    alert("hello");#}
+                    if (data.status == "success") {
+                        location.href = "{% url 'basesettings' %}"
+                    } else {
+                        {#                        console.log(data.error_msg);#}
+                        $("#error_msg").text(data.error_msg);
+                        $("[name=username]").text(data.return_username);
+                        $("[name=password]").text(data.return_password);
+                    }
+                }
+            })
+        })
+    $('body').keydown(function (e) {
+        e.stopPropagation();
+        if (event.keyCode==13)  //回车键的键值为13
+            document.getElementById("login_btn").click(); //调用登录按钮的登录事件
+    })
+
+
+    });
+
+
+</script>

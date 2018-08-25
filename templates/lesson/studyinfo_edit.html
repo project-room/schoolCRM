@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class="tiaoshi">
+        <div class="classEdit">
+
+            <div class="classEditTitle">
+                <a href="{% url 'lesson' %}"><img class="editAll" src="/static/img/return.png" alt=""></a> 编辑上课信息
+            </div>
+            <div class="classEditContent">
+                <form action="" method="post" id="studyinfo_edit_form">
+                {% csrf_token %}
+                <ul>
+                    <input type="hidden" value="{{ study_info.id }}" name="studyinfo_id_hidden">
+                    <li>
+                        <span>Course:</span>
+                        <select name="studyinfo_course">
+                            {% for course in courses %}
+                            <option value="{{ course.id }}" {% ifequal course.id study_info.course.id %}selected{% endifequal %}>{{ course.course_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                     <li>
+                        <span>Course type</span>
+                        <select name="course_type_name">
+                            {% for course_type in course_types %}
+                            <option value="{{ course_type.id }}" {% ifequal course_type.id study_info.course_type.type_name %}selected{% endifequal %}>{{ course_type.type_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                     <li>
+                          <span>时长:</span> <div><input type="text" placeholder="时长"  name="studyinfo_hours" value="{{ study_info.hours }}"
+                                     style="background: url('/static/img/drawdown.png') no-repeat 140px center transparent;"> </div>
+                      </li>
+                      <li>
+                          <span>Date:</span> <div><input type="text" placeholder="请选择日期" id="moneyDate" name="studyinfo_class_date" value="{{ study_info.class_date | date:"Y-m-d" }}"
+                                     style="background: url('/static/img/drawdown.png') no-repeat 140px center transparent;"> </div>
+                      </li>
+                   <li>
+                        <span>Name:</span>
+                       <select name="study_student_id">
+                           {% for student in students %}
+                           <option value="{{ student.id }}" {% ifequal student.id study_info.student.id %}selected{% endifequal %}>{{ student.name }}</option>
+                           {% endfor %}
+                       </select>
+                    </li>
+                     <li>
+                        <span>Employee Name:</span>
+                        <select name="study_teacher_id">
+                            {% for teacher in teachers %}
+                            <option value="{{ teacher.id }}" {% ifequal teacher.id study_info.teacher.id %}selected{% endifequal %}>{{ teacher.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                </ul>
+              </form>
+            </div>
+            <div>
+                <a href="{% url 'lesson' %}"><input type="button" value="取消"></a>
+                <input type="button" value="保存" id="studyinfo_edit_btn">
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+          $(function(){
+              $(".classEdit").show()
+
+              $("#studyinfo_edit_btn").click(function () {
+                  $formData=new FormData(studyinfo_edit_form)
+                  $.ajax({
+                    url:"{% url 'study_info_edit_save' %}",
+                    type:"POST",
+                    data:$formData,
+                    contentType:false,
+                    processData:false,
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                         if (data.status == "success") {
+                               $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'lesson' %}"
+                         });
+                        } else {
+                              $(".fail_tip").show(100).delay(1000).hide(100);
+                        }
+
+                    }
+
+                  })
+              })
+          })
+    </script>
+{% endblock %}

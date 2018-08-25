@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div class="settingAdd">
+        <div class="addNumber">
+            <p class="add">
+                <a href="{% url 'settings' %}"><img class="editAll" src="/static/img/return.png" alt=""></a> 添加人员
+            </p>
+            <form action="" method="post" id="user_add_form">
+                {% csrf_token %}
+                <div class="compire">
+
+                    <ul>
+                        <li>
+                            <span>登录名</span>
+                            <input type="text" name="username" id="username"
+                                   placeholder="&nbsp;(用户名只能由2-15个英文字母或数字组成。如michael88)" value="">
+                        </li>
+                        <li>
+                            <span>密码</span>
+                            <input type="password" name="pwd" id="pwd" placeholder="&nbsp;(请输入密码)">
+                        </li>
+                        <li>
+                            <span>确认密码</span>
+                            <input type="password" name="ack_pwd" id="ack_pwd" placeholder="&nbsp;(请再次输入密码)">
+                        </li>
+                        <li>
+                            <span>姓名</span>
+                            <input type="text" name="real_name" id="real_name" placeholder="&nbsp;(请输入真实姓名)">
+                        </li>
+                    </ul>
+
+
+                </div>
+                <div class="userCompire">
+{#                    <p>下次登录必须修改密码</p>#}
+{#                    <p class="gray">强制用户下次登录时必须修改密码</p>#}
+{#                    <ul>#}
+{#                        <li>#}
+{#                            <input type="radio" name="must_change_pwd" value="0">#}
+{#                            <span>是</span>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" name="must_change_pwd" value="1">#}
+{#                            <span>否</span>#}
+{#                        </li>#}
+{#                    </ul>#}
+                    <div class="userButton">
+                        <a href="{% url 'settings' %}">
+                        <input type="button" value="取消">
+                        </a>
+                        <input type="button" id="user_btn_add" value="添加">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $("#user_btn_add").click(function () {
+            var $formData = new FormData();
+            $formData.append("username", $("#username").val());
+            $formData.append("pwd", $("#pwd").val());
+            $formData.append("ack_pwd", $("#ack_pwd").val());
+            $formData.append("real_name", $("#real_name").val());
+            $formData.append("must_change_pwd", $("input[name='must_change_pwd']:checked").val());
+
+            user_add_form_data = new FormData(user_add_form);
+            $.ajax({
+                url: "{% url 'add_user_save' %}",
+                type: "POST",
+                data: user_add_form_data,
+                contentType: false,
+                processData: false,
+                headers: {"X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val()},
+                success: function (data) {
+                    if (data.status == "success") {
+                         $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'settings' %}"
+                         });
+                    } else {
+                        $(".fail_tip").show(100).delay(1000).hide(100);
+                    }
+                }
+            })
+        })
+    </script>
+{% endblock %}

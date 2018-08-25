@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+        <div class="regidtrationEdit">
+            <div class="editInformation">
+                <div class="editTitle">
+                    <a href="{% url 'registration' %}"><img class="editAll" src="/static/img/return.png" alt=""></a>&nbsp;&nbsp;编辑报名信息
+                </div>
+            <form action="" method="post" id="register_edit_form">
+                <div class="editContent">
+                    <ul class="first">
+                        <input type="hidden" value="{{ register_info.id }}" name="register_hid_id">
+                        <li>
+                        <span>Name</span>&nbsp;&nbsp;
+                        <select name="register_student_id">
+                            {% for student in students %}
+                            <option value="{{ student.id }}" {% ifequal student.id register_info.student.id %}selected{% endifequal %}>{{ student.name }}</option>
+                            {% endfor %}
+                        </select>
+                        </li>
+                        <li>
+                               <span>课程</span>&nbsp;&nbsp;
+                             <select class="register_course_id" name="register_course_id">
+                                  {% for parent_course in parent_courses %}
+                                      {% if parent_course.course_set.get_queryset %}
+                                  <optgroup label="{{ parent_course.name }}">
+                                      {% for child_course in parent_course.course_set.get_queryset %}
+                                    <option value ="{{ child_course.id }}" class="click" {% ifequal child_course.id register_info.course.id %}selected{% endifequal %}>&nbsp;&nbsp;&nbsp;{{ child_course.course_name }}</option>
+                                      {% endfor %}
+                                  </optgroup>
+                                      {% endif %}
+                                  {% endfor %}
+                                 </select>
+                        </li>
+                        <li>
+                             <span>类型</span>&nbsp;&nbsp;
+                        <select name="register_type_id">
+                            {% for type in types %}
+                            <option value="{{ type.id }}" {% ifequal type.id register_info.course_type.id %}selected{% endifequal %}>{{ type.type_name }}</option>
+                            {% endfor %}
+                        </select>
+                        </li>
+                        <li>
+                            <span>时长</span>&nbsp;&nbsp;
+                            <div>
+                                <input type="text" placeholder="时长" value="{{ register_info.hours }}" name="register_hours">
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="second">
+                        <li>
+                            <span>应收金额</span>&nbsp;&nbsp;
+                            <div>
+                                <input type="text" placeholder="请输入金额" class="receivable" value="{{ register_info.price }}" name="register_price">
+                            </div>
+                            $
+                        </li>
+                        <li>
+                            <span>折扣</span>&nbsp;&nbsp;
+                            <div>
+                                <input type="text" placeholder="请输入折扣" class="discount" value="{{ register_info.discount }}" name="register_discount">
+                            </div>
+                            $
+                        </li>
+                        <li>
+                            <span>实收金额</span>&nbsp;&nbsp;
+                            <div>
+                                <input type="text" placeholder="请输入金额" class="receipts" value="{{ register_info.final_money }}" name="register_final_money">
+                            </div>
+                            $
+                        </li>
+                    </ul>
+
+                    <div class="date">
+                        <ul>
+                            <li>
+                                <span>日期</span>&nbsp;&nbsp;
+                                <div>
+                                    <input type="text" placeholder="请选择日期" id="moneyDate" style="background: url('../../img/drawdown.png') no-repeat scroll 140px center transparent;" value="{{ register_info.register_date | date:"Y-m-d"}}" name="register_date">
+                                </div>
+                            </li>
+                            <li class="remark">
+                                <span>备注</span>&nbsp;&nbsp;
+                                <div>
+                                    <input type="text" value="{{ register_info.note }}" name="register_note">
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="saveButton">
+                        <a href="{% url 'registration' %}"><input type="button" value="取消"></a>
+                        <input type="button" value="保存" id="register_edit_save">
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+
+    $("#register_edit_save").click(function () {
+        $formData=new FormData(register_edit_form)
+        $.ajax({
+             url:"{% url 'edit_register_save' %}",
+                    type:"POST",
+                    data:$formData,
+                    contentType:false,
+                    processData:false,
+                    headers:{"X-CSRFToken":$('[name="csrfmiddlewaretoken"]').val()},
+                    success:function (data) {
+                         if (data.status == "success") {
+                              $(".success_tip").show(100).delay(1000).hide(100,function () {
+                             location.href = "{% url 'registration' %}"
+                         });
+                        } else {
+                             $(".fail_tip").show(100).delay(1000).hide(100);
+                        }
+
+                    }
+        })
+    })
+    </script>
+{% endblock %}

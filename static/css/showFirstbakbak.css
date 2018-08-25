@@ -1,0 +1,2391 @@
+.showhead {
+    position: relative;
+    height: 60px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.showhead .showName {
+    position: absolute;
+    right: 50px;
+    top: 30%;
+    font-size: 12px;
+    text-align: center;
+    width: 120px;
+}
+
+.showhead .showName img {
+    width: 14px;
+}
+
+.leftSide {
+    position: absolute;
+    top: 0;
+    /* bottom: 0; */
+    height: 100%;
+    width: 180px;
+    background: #fff;
+    padding-top: 20px;
+    box-shadow: 1px 1px 3px #ccc;
+}
+
+.sideImg {
+    text-align: center;
+}
+
+.sideNav ul li {
+    text-align: center;
+    padding: 20px 10px 20px 10px;
+    background: url('../../img/setting01.png') 20px center no-repeat;
+}
+
+.sideContent {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    background: #fff;
+}
+
+/*上课信息*/
+
+.sideContent .tiaoshi {
+    position: relative;
+}
+
+.sideContent .tiaoshi .contentHead {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .tiaoshi .contentHead input[type="button"] {
+    width: 65px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    background-color: #fcb636;
+    color: #fff;
+}
+
+.sideContent .tiaoshi .contentHead input[type="text"] {
+    width: 110px;
+    height: 25px;
+    outline: none;
+    font-size: 12px;
+    border: none;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right div {
+    display: inline-block;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right div+div {
+    margin-left: 10px;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right div div {
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+}
+
+.sideContent .tiaoshi .mainContent {
+    position: absolute;
+    left: 181px;
+    top: 71px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .tiaoshi .mainContent .contentTitle li {
+    /* padding-left: 18px; */
+    background: #ececec;
+}
+
+.sideContent .tiaoshi .mainContent .contentTitle li,
+.sideContent .tiaoshi .mainContent .mainShow li {
+    border-bottom: 1px solid #ccc;
+    /* text-align: center; */
+}
+
+.sideContent .tiaoshi .mainContent nav {
+    margin-top: 250px;
+    text-align: center;
+}
+
+.sideContent .tiaoshi .mainContent .mainShow .operate {
+    display: none;
+    font-size: 12px;
+}
+
+.sideContent .tiaoshi .mainContent .mainShow .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/* .sideContent .tiaoshi .contentHead .paddingName{
+      margin-left: 215px;
+} */
+
+.sideContent .tiaoshi .contentHead {
+    position: relative;
+}
+
+.sideContent .tiaoshi .contentHead .paddingLeft {
+    position: absolute;
+    left: 20px;
+}
+
+.sideContent .tiaoshi .contentHead .padding_right {
+    position: absolute;
+    right: 10px;
+}
+
+/* .sideContent .tiaoshi .contentHead .paddingLeft,
+.sideContent .tiaoshi .contentHead .padding_right {
+    position: static;
+}
+.sideContent .teacherNew .mainContent .contentTitle span,
+.sideContent .teacherNew .mainContent .mainShow span {
+    display: inline-block;
+    width: 100px;
+    padding: 10px 0px 10px 0px;
+    font-size: 12px;
+} */
+
+/*学生信息*/
+
+.sideContent .studentBig {
+    position: relative;
+}
+
+.sideContent .studentBig .contentHead div {
+    display: inline-block;
+}
+
+.sideContent .studentBig .contentHead {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .studentBig .contentHead input[type="button"] {
+    width: 65px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    background: #fcb636;
+    color: #fff;
+}
+
+.sideContent .studentBig .contentHead .padding_right {
+    height: 30px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: absolute;
+    right: 100px;
+    padding: 0 10px 0 10px;
+}
+
+.sideContent .studentBig .contentHead .padding_right input[type="text"] {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-right: 34px;
+}
+.sideContent .studentBig .contentHead .padding_right input[type="button"] {
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    left: 260px;
+}
+
+.sideContent .studentBig .studentContent {
+    position: absolute;
+    left: 181px;
+    top: 71px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .studentBig .studentContent .studentContentTitle {
+    /* padding-left: 18px; */
+    background: #ececec;
+}
+
+.sideContent .studentBig .studentContent .studentContentTitle ul li,
+.sideContent .studentBig .studentContent .studentContentMain ul li {
+    padding: 10px 10px 10px 0px;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+}
+
+.sideContent .studentBig .studentContent nav {
+    margin-top: 250px;
+    text-align: center;
+}
+
+/* .sideContent .studentBig .studentContent input[type="checkbox"]{
+    z-index: 2222;
+} */
+
+.sideContent .studentBig .studentContent .first {
+    margin-left: 20px;
+}
+
+.sideContent .studentBig .studentContent span+span {
+    margin-left: 100px;
+}
+
+.sideContent .studentBig .studentContent .ming {
+    margin-left: 112px
+}
+
+.sideContent .studentBig .studentContent .studentContentMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 200px;
+}
+
+.sideContent .studentBig .studentContent .studentContentMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/*学生添加遮罩层*/
+
+#studentaddmodal .modal_content .addList p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#studentaddmodal .modal_content .addList ul {
+    margin: 0 100px 0 100px;
+}
+
+#studentaddmodal .modal_content .addList ul li {
+    padding: 20px 20px 10px 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+#studentaddmodal .modal_content .addList ul li span {
+    /* margin-left: 50px; */
+    display: inline-block;
+    width: 100px;
+}
+
+#studentaddmodal .modal_content .addList ul li input[type="text"] {
+    border: none;
+    outline: none;
+    height: 30px;
+    width: 300px;
+}
+
+#studentaddmodal .modal_content .addList .addListButton {
+    text-align: center;
+    margin-top: 80px;
+}
+
+#studentaddmodal .modal_content .addList .addListButton input[type="button"] {
+    width: 130px;
+    height: 40px;
+    margin: 0px 25px 0px 25px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+#studentaddmodal .modal_content .addList .addListButton input[value="添加"] {
+    background: skyblue;
+}
+
+/*教师添加遮罩层*/
+
+#teacheraddmodal .modal_content .teacherAddList p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#teacheraddmodal .modal_content .teacherAddList ul {
+    margin: 0 100px 0 100px;
+}
+
+#teacheraddmodal .modal_content .teacherAddList ul li {
+    padding: 20px 20px 10px 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+#teacheraddmodal .modal_content .teacherAddList ul li span {
+    /* margin-left: 50px; */
+    display: inline-block;
+    width: 150px;
+}
+
+#teacheraddmodal .modal_content .teacherAddList ul li input[type="text"] {
+    border: none;
+    outline: none;
+    height: 30px;
+    width: 300px;
+}
+
+#teacheraddmodal .modal_content .teacherAddList .addListButton {
+    text-align: center;
+    margin-top: 80px;
+}
+
+#teacheraddmodal .modal_content .teacherAddList .addListButton input[type="button"] {
+    width: 130px;
+    height: 40px;
+    margin: 0px 25px 0px 25px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+#teacheraddmodal .modal_content .teacherAddList .addListButton input[value="添加"] {
+    background: skyblue;
+}
+
+/*学生信息详情*/
+
+.sideContent .studentBig .studentDetail {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    display: none;
+}
+
+.sideContent .studentBig .studentDetail .studentDetailTitle {
+    font-size: 18px;
+    margin-left: 45px;
+    margin-bottom: 30px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .Nav {
+    margin-left: 45px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .Nav li {
+    display: inline-block;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px 0 20px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .Nav li+li {
+    margin-left: -6px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .new {
+    font-size: 14px;
+    margin-left: 45px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .new li {
+    padding: 20px 0 20px 0;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .new li span {
+    display: inline-block;
+    width: 100px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history {
+    font-size: 14px;
+    margin-left: 45px;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history .historyTitle {
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    background: #ececec;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history li {
+    padding: 15px 0 15px 0;
+}
+
+.sideContent .studentBig .studentDetail .stuedentDetailContent .history li span {
+    display: inline-block;
+    width: 110px;
+}
+
+.active {
+    background: #fcb636;
+    color: #fff;
+}
+
+/*教师信息*/
+
+.sideContent .teacherNew {
+    position: relative;
+}
+
+.sideContent .teacherNew .contentHead {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .teacherNew .contentHead input[type="button"] {
+    width: 65px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    background: #fcb636;
+    color: #fff;
+}
+
+.sideContent .teacherNew .contentHead input[type="text"] {
+    width: 110px;
+    height: 25px;
+    outline: none;
+    font-size: 12px;
+    border: none;
+}
+
+.sideContent .teacherNew .contentHead .padding_right div {
+    display: inline-block;
+}
+
+.sideContent .teacherNew .contentHead .padding_right div+div {
+    margin-left: 10px;
+}
+
+.sideContent .teacherNew .contentHead .padding_right div div {
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+}
+
+.sideContent .teacherNew .mainContent {
+    position: absolute;
+    left: 181px;
+    top: 71px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .teacherNew .mainContent .contentTitle li {
+    /* padding-left: 18px; */
+    background: #ececec;
+}
+
+.sideContent .teacherNew .mainContent .contentTitle li,
+.sideContent .teacherNew .mainContent .mainShow li {
+    border-bottom: 1px solid #ccc;
+    /* text-align: center; */
+}
+
+.sideContent .teacherNew .mainContent nav {
+    margin-top: 250px;
+    text-align: center;
+}
+
+.sideContent .teacherNew .mainContent .mainShow .operate {
+    display: none;
+    font-size: 12px;
+}
+
+.sideContent .teacherNew .mainContent .mainShow .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/* .sideContent .tiaoshi .contentHead .paddingName{
+      margin-left: 215px;
+} */
+
+.sideContent .teacherNew .contentHead {
+    position: relative;
+}
+
+.sideContent .teacherNew .contentHead .paddingLeft {
+    position: absolute;
+    left: 20px;
+}
+
+.sideContent .teacherNew .contentHead .padding_right {
+    position: absolute;
+    right: 10px;
+}
+
+/*教师信息详情*/
+
+.sideContent .teacherNew .teacherDetail {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    display: none;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailTitle {
+    font-size: 18px;
+    margin-left: 45px;
+    margin-bottom: 30px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .Nav {
+    margin-left: 45px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .Nav li {
+    display: inline-block;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px 0 20px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .Nav li+li {
+    margin-left: -6px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .new {
+    font-size: 14px;
+    margin-left: 45px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .new li {
+    padding: 20px 0 20px 0;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .new li span {
+    display: inline-block;
+    width: 100px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history {
+    font-size: 14px;
+    margin-left: 45px;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history .historyTitle {
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    background: #ececec;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history li {
+    padding: 15px 0 15px 0;
+}
+
+.sideContent .teacherNew .teacherDetail .teacherDetailContent .history li span {
+    display: inline-block;
+    width: 110px;
+}
+
+/*
+ 遮罩层
+*/
+
+/*上课信息导出*/
+
+#cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#modal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#modal #close {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*上课信息的添加*/
+
+#addcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#addmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#addmodal #addclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*上课信息编辑*/
+
+#editcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#editmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#editmodal #editclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*学生信息导出*/
+
+#studentcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#studentmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#studentmodal #studentclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*学生信息添加*/
+
+#studentaddcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#studentaddmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#studentaddmodal #studentaddclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*学生信息编辑*/
+
+#edistudentcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#editstudentmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#editstudentmodal #editstudentclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+
+/*教师信息*/
+
+#teachercover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#teachermodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#teachermodal #teacherclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*教师信息添加*/
+
+#teacheraddcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#teacheraddmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#teacheraddmodal #teacheraddclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+/*教师信息编辑*/
+#teachereditcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* bottom: 0; */
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    height: 100%;
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+}
+
+#teachereditmodal {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#teachereditmodal #teachereditclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+
+/*小的遮罩层*/
+
+#smallcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    display: none;
+    z-Index: 999;
+}
+
+#smallmodal {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -150px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999;
+}
+
+#smallmodal #smallclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+#smallmodal .smassModal_content p {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#smallmodal .smassModal_content div {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#smallmodal .smassModal_content div input {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    margin: 0 15px 0 15px;
+}
+
+#smallmodal .smassModal_content div input[value="确定"] {
+    background: skyblue;
+}
+
+/*导出*/
+
+/*上课信息*/
+
+#modal .modal_content .daochu p {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+#modal .modal_content .daochu .checkAll {
+    display: inline-block;
+    margin-top: 120px;
+    margin-left: 60px;
+}
+
+#modal .modal_content .daochu ul li {
+    display: inline-block;
+    width: 25.33%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#modal .modal_content .daochu span {
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+#modal .modal_content .daochu input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+#modal .modal_content .daochu .modal_button {
+    width: 500px;
+    height: 100px;
+    line-height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#modal .modal_content .daochu .modal_button input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+}
+
+#modal .modal_content .daochu .modal_button input[value="确定"] {
+    background: skyblue;
+}
+
+#modal .modal_content .daochu .modal_button input[type="button"]+input[type="button"] {
+    margin-left: 100px;
+}
+
+/*学生信息*/
+
+#studentmodal .modal_content .daochu p {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+#studentmodal .modal_content .daochu .checkAll {
+    display: inline-block;
+    margin-top: 120px;
+    margin-left: 60px;
+}
+
+#studentmodal .modal_content .daochu ul li {
+    display: inline-block;
+    width: 25.33%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#studentmodal .modal_content .daochu span {
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+#studentmodal .modal_content .daochu input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+#studentmodal .modal_content .daochu .modal_button {
+    width: 500px;
+    height: 100px;
+    line-height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#studentmodal .modal_content .daochu .modal_button input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+}
+
+#studentmodal .modal_content .daochu .modal_button input[value="确定"] {
+    background: skyblue;
+}
+
+#studentmodal .modal_content .daochu .modal_button input[type="button"]+input[type="button"] {
+    margin-left: 100px;
+}
+
+/*教师信息*/
+
+#teachermodal .modal_content .daochu p {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+#teachermodal .modal_content .daochu .checkAll {
+    display: inline-block;
+    margin-top: 120px;
+    margin-left: 60px;
+}
+
+#teachermodal .modal_content .daochu ul li {
+    display: inline-block;
+    width: 25.33%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#teachermodal .modal_content .daochu span {
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+#teachermodal .modal_content .daochu input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+#teachermodal .modal_content .daochu .modal_button {
+    width: 500px;
+    height: 100px;
+    line-height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#teachermodal .modal_content .daochu .modal_button input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+}
+
+#teachermodal .modal_content .daochu .modal_button input[value="确定"] {
+    background: skyblue;
+}
+
+#teachermodal .modal_content .daochu .modal_button input[type="button"]+input[type="button"] {
+    margin-left: 100px;
+}
+
+/*添加*/
+
+/*上课信息*/
+
+#addmodal .modal_content .add p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#addmodal .modal_content .add .classNew ul {
+    padding-bottom: 20px;
+}
+
+#addmodal .modal_content .add .classNew ul li {
+    display: inline-block;
+    width: 40%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#addmodal .modal_content .add .classNew span {
+    /* margin-left: 20px; */
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+    margin-right: 5px;
+}
+
+#addmodal {
+    overflow: auto;
+}
+
+#addmodal .modal_content .add .classNew input[type="text"] {
+    width: 62%;
+    height: 25px;
+}
+
+#addmodal .modal_content .add .studentList ul li {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 60px;
+}
+
+#addmodal .modal_content .add .studentList input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+    vertical-align: middle;
+}
+
+#addmodal .modal_content .add .studentList .teshu {
+    padding-left: 100px;
+}
+
+#addmodal .modal_content .add .studentList img {
+    vertical-align: middle;
+}
+
+#addmodal .modal_content .add .studentList span {
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+}
+
+#addmodal .modal_content .add .studentList input[type='text'] {
+    margin-left: 30px;
+}
+
+#addmodal .modal_content .add .studentList .listFirst {
+    margin-left: 28px;
+}
+
+#addmodal .modal_content .add .studentList span+span {
+    margin-left: 95px;
+}
+
+#addmodal .modal_content .add .studentList .addstudent input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+#addmodal .modal_content .add .studentList .addSave input[type='button'] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    /* margin-top: 20px; */
+}
+
+#addmodal .modal_content .add .studentList .addSave input[value="取消"] {
+    margin-right: 50px;
+    margin-left: 450px;
+}
+
+#addmodal .modal_content .add .studentList .addSave input[value="提交"] {
+    background: skyblue;
+}
+
+/*学生信息*/
+
+#studentmodal .modal_content .add p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#studentmodal .modal_content .add .classNew ul {
+    padding-bottom: 20px;
+}
+
+#studentmodal .modal_content .add .classNew ul li {
+    display: inline-block;
+    width: 40%;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+#studentmodal .modal_content .add .classNew span {
+    /* margin-left: 20px; */
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+    margin-right: 5px;
+}
+
+#studentmodal {
+    overflow: auto;
+}
+
+#studentmodal .modal_content .add .classNew input[type="text"] {
+    width: 62%;
+    height: 25px;
+}
+
+#studentmodal .modal_content .add .studentList ul li {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 60px;
+}
+
+#studentmodal .modal_content .add .studentList input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+    vertical-align: middle;
+}
+
+#studentmodal .modal_content .add .studentList .teshu {
+    padding-left: 100px;
+}
+
+#studentmodal .modal_content .add .studentList img {
+    vertical-align: middle;
+}
+
+#studentmodal .modal_content .add .studentList span {
+    display: inline-block;
+    font-size: 14px;
+    width: 110px;
+}
+
+#studentmodal .modal_content .add .studentList input[type='text'] {
+    margin-left: 30px;
+}
+
+#studentmodal .modal_content .add .studentList .listFirst {
+    margin-left: 28px;
+}
+
+#studentmodal .modal_content .add .studentList span+span {
+    margin-left: 95px;
+}
+
+#studentmodal .modal_content .add .studentList .addstudent input[type="button"] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+#studentmodal .modal_content .add .studentList .addSave input[type='button'] {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    /* margin-top: 20px; */
+}
+
+#studentmodal .modal_content .add .studentList .addSave input[value="取消"] {
+    margin-right: 50px;
+    margin-left: 450px;
+}
+
+#studentmodal .modal_content .add .studentList .addSave input[value="提交"] {
+    background: skyblue;
+}
+
+/*编辑*/
+  /*上课信息*/
+#editmodal .modal_content p{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 50px;
+} 
+#editmodal .modal_content ul{
+    margin-top: 20px;
+}
+#editmodal .modal_content ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px 10px 10px;
+    
+}
+#editmodal .modal_content ul li span{
+    display: inline-block;
+    width: 150px;
+}
+#editmodal .modal_content ul li input[type="text"]{
+    /* margin-left:50px; */
+    border: none;
+    outline: none;
+    width: 350px;
+}
+#editmodal .modal_content .editButton{
+    margin-top: 30px;
+    text-align: center;
+}
+#editmodal .modal_content .editButton input[type="button"]{
+    width: 100px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    margin-left: 50px;
+    
+}
+#editmodal .modal_content .editButton input[value="保存"]{
+   background: skyblue;
+}
+
+/*学生信息*/
+#editstudentmodal .modal_content p{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 50px;
+} 
+#editstudentmodal .modal_content ul{
+    margin-top: 20px;
+}
+#editstudentmodal .modal_content ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px 10px 10px;
+    
+}
+#editstudentmodal .modal_content ul li span{
+    display: inline-block;
+    width: 100px;
+}
+#editstudentmodal .modal_content ul li input[type="text"]{
+    /* margin-left:50px; */
+    border: none;
+    outline: none;
+    width: 350px;
+}
+#editstudentmodal .modal_content .editButton{
+    margin-top:220px;
+    text-align: center;
+}
+#editstudentmodal .modal_content .editButton input[type="button"]{
+    width: 100px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    margin-left: 50px;
+    
+}
+#editstudentmodal .modal_content .editButton input[value="保存"]{
+   background: skyblue;
+}
+
+/*教师信息*/
+#teachereditmodal .modal_content p{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 50px;
+} 
+#teachereditmodal .modal_content ul{
+    margin-top: 20px;
+}
+#teachereditmodal .modal_content ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px 10px 10px;
+    
+}
+#teachereditmodal .modal_content ul li span{
+    display: inline-block;
+    width: 100px;
+}
+#teachereditmodal .modal_content ul li input[type="text"]{
+    /* margin-left:50px; */
+    border: none;
+    outline: none;
+    width: 350px;
+}
+#teachereditmodal .modal_content .editButton{
+    margin-top: 180px;
+    text-align: center;
+}
+#teachereditmodal .modal_content .editButton input[type="button"]{
+    width: 100px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    margin-left: 50px;
+    
+}
+#teachereditmodal .modal_content .editButton input[value="保存"]{
+   background: skyblue;
+}
+
+
+
+
+
+/*最顶层的弹框*/
+
+#Topcover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    display: none;
+    z-Index: 9999;
+}
+
+#Topmodal {
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -350px;
+    margin-top: -250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 10000;
+}
+
+#Topmodal #Topclose {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*帐号设置*/
+
+.sideContent .numberSetting {
+    position: relative;
+}
+
+.sideContent .numberSetting .setting {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .numberSetting .setting ul li {
+    padding: 15px 0 15px 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .numberSetting .setting ul li span+span {
+    margin-left: 10px;
+}
+
+.sideContent .numberSetting .setting ul li input {
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    width: 300px;
+    display: inline-block;
+}
+
+.sideContent .numberSetting .setting ul li .correct {
+    position: absolute;
+    right: 300px;
+    font-size: 12px;
+    color: #169BD5;
+}
+
+/*点击修改的弹框*/
+
+#smallmodal .smallModal_content ul {
+    margin-top: 50px;
+}
+
+#smallmodal .smallModal_content ul li {
+    font-size: 14px;
+    padding: 10px 20px 10px 20px;
+}
+
+#smallmodal .smallModal_content ul li span {
+    display: inline-block;
+    width: 100px;
+}
+
+#smallmodal .smallModal_content ul li input[type="text"] {
+    width: 200px;
+    height: 30px;
+}
+
+#smallmodal .smallModal_content .smallButton {
+    text-align: center;
+}
+
+#smallmodal .smallModal_content .smallButton input[type="button"] {
+    width: 80px;
+    height: 30px;
+    margin: 20px 10px 20px 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+#smallmodal .smallModal_content .smallButton input[value="确定"] {
+    background: skyblue;
+}
+
+/*回收站*/
+
+.sideContent .recycle {
+    position: relative;
+    
+}
+
+.sideContent .recycle .recycleTitle {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 20px 0 20px 20px;
+    z-index: 2222;
+}
+
+.sideContent .recycle .re_button {
+    position: absolute;
+    right: 145px;
+    z-index: 2222;
+    top: 10px;
+}
+.sideContent .recycle .re_button input{
+    width: 80px;
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: #ececec;
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+.sideContent .recycle .recycleTitle ul li {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background: #fcb636;
+    font-size: 12px;
+}
+
+.sideContent .recycle .recycleTitle ul li+li {
+    margin-left: -5px;
+}
+
+.sideContent .recycle .classrecycleContent {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 70px 0 20px 20px;
+}
+
+.sideContent .recycle .classrecycleContent li {
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .recycle .classrecycleContent li span {
+    padding: 10px 0 10px 0;
+    font-size: 12px;
+}
+
+.sideContent .recycle .classrecycleContent input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.sideContent .recycle .classrecycleContent .recycleContentTitle ul li {
+    background: #ececec;
+}
+
+.sideContent .recycle .classrecycleContent .recycleContentTitle ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    /* margin-left: 20px; */
+    text-align: center;
+}
+
+.sideContent .recycle .classrecycleContent .recycleMain ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    text-align: center;
+}
+
+.sideContent .recycle .classrecycleContent .recycleMain ul li .longdate {
+    width: 170px;
+}
+
+.sideContent .recycle .classrecycleContent .recycleMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.sideContent .recycle .classrecycleContent .recycleMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+.sideContent .recycle .studentrecycleContent {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 70px 0 20px 20px;
+}
+
+.sideContent .recycle .studentrecycleContent li {
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .recycle .studentrecycleContent li span {
+    padding: 10px 0 10px 0;
+}
+
+.sideContent .recycle .studentrecycleContent input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.sideContent .recycle .studentrecycleContent .recycleContentTitle ul li {
+    background: #ececec;
+}
+
+.sideContent .recycle .studentrecycleContent .recycleContentTitle ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    /* margin-left: 20px; */
+    text-align: center;
+}
+
+.sideContent .recycle .studentrecycleContent .recycleMain ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    text-align: center;
+}
+
+.sideContent .recycle .studentrecycleContent .recycleMain ul li .longdate {
+    width: 170px;
+}
+
+.sideContent .recycle .studentrecycleContent .recycleMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.sideContent .recycle .studentrecycleContent .recycleMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+.sideContent .recycle .teacherrecycleContent {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 70px 0 20px 20px;
+}
+
+.sideContent .recycle .teacherrecycleContent li {
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .recycle .teacherrecycleContent li span {
+    padding: 10px 0 10px 0;
+}
+
+.sideContent .recycle .teacherrecycleContent input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.sideContent .recycle .teacherrecycleContent .recycleContentTitle ul li {
+    background: #ececec;
+}
+
+.sideContent .recycle .teacherrecycleContent .recycleContentTitle ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    /* margin-left: 20px; */
+    text-align: center;
+}
+
+.sideContent .recycle .teacherrecycleContent .recycleMain ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    text-align: center;
+}
+
+.sideContent .recycle .teacherrecycleContent .recycleMain ul li .longdate {
+    width: 170px;
+}
+
+.sideContent .recycle .teacherrecycleContent .recycleMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.sideContent .recycle .teacherrecycleContent .recycleMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+.sideContent .recycle .peoplerecycleContent {
+    font-size: 12px;
+    position: absolute;
+    left: 181px;
+    padding: 70px 0 20px 20px;
+}
+
+.sideContent .recycle .peoplerecycleContent li {
+    border-bottom: 1px solid #ccc;
+}
+
+.sideContent .recycle .peoplerecycleContent li span {
+    padding: 10px 0 10px 0;
+}
+
+.sideContent .recycle .peoplerecycleContent input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.sideContent .recycle .peoplerecycleContent .recycleContentTitle ul li {
+    background: #ececec;
+}
+
+.sideContent .recycle .peoplerecycleContent .recycleContentTitle ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    /* margin-left: 20px; */
+    text-align: center;
+}
+
+.sideContent .recycle .peoplerecycleContent .recycleMain ul li span {
+    display: inline-block;
+    font-size: 12px;
+    width: 110px;
+    text-align: center;
+}
+
+.sideContent .recycle .peoplerecycleContent .recycleMain ul li .longdate {
+    width: 170px;
+}
+
+.sideContent .recycle .peoplerecycleContent .recycleMain .operate {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.sideContent .recycle .peoplerecycleContent .recycleMain .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+/*对所有需要改变手指的li统一修改*/
+
+.tiaoshi .mainContent .mainShow ul li,
+.studentBig .studentContent .studentContentMain ul li,
+.teacherNew .mainContent .mainShow ul li,
+.recycle .classrecycleContent .recycleMain ul li,
+.recycle .studentrecycleContent .recycleMain ul li,
+.recycle .teacherrecycleContent .recycleMain ul li,
+.recycle .peoplerecycleContent .recycleMain ul li {
+    cursor: pointer;
+}
+
+.tiaoshi .mainContent .mainShow ul li:hover,
+.studentBig .studentContent .studentContentMain ul li:hover,
+.teacherNew .mainContent .mainShow ul li:hover,
+.recycle .classrecycleContent .recycleMain ul li:hover,
+.recycle .studentrecycleContent .recycleMain ul li:hover,
+.recycle .teacherrecycleContent .recycleMain ul li:hover,
+.recycle .peoplerecycleContent .recycleMain ul li:hover {
+    background: rgb(231, 244, 250)
+}
+
+/*点击上课信息的添加学生*/
+
+#Topmodal .TopModal_content .search {
+    position: relative;
+    height: 30px;
+    padding: 20px;
+}
+
+#Topmodal .TopModal_content .search input[type="text"] {
+    height: 35px;
+    width: 300px;
+    padding-left: 20px;
+    outline: none;
+}
+#Topmodal .TopModal_content .search input[type="button"] {
+    width: 80px;
+    height: 35px;
+    font-size: 12px;
+    background: #fcb636 ;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+
+#Topmodal .TopModal_content .search img {
+    position: absolute;
+    left: 285px;
+    top: 21px;
+    height: 70%;
+    background: #fff;
+}
+
+#Topmodal .TopModal_content .contentTitle ul li,
+#Topmodal .TopModal_content .mainShow ul li {
+    padding: 20px 20px 20px 20px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+#Topmodal .TopModal_content .contentTitle ul li span,
+#Topmodal .TopModal_content .mainShow ul li span {
+    display: inline-block;
+    width: 100px;
+}
+
+#Topmodal .TopModal_content .mainShow .operate {
+    display: none;
+}
+
+#Topmodal .TopModal_content .mainShow .operate p {
+    display: inline-block;
+    color: #ccc;
+}
+
+
+/*上课信息编辑*/
+.sideContent .tiaoshi .classEdit {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    /*display: none;*/
+}
+
+.sideContent .tiaoshi .classEdit .classEditTitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.sideContent .tiaoshi .classEdit .classEditTitle img{
+    margin-right: 20px;
+}
+.sideContent .tiaoshi .classEdit .classEditContent ul{
+    width: 100%;
+}
+.sideContent .tiaoshi .classEdit .classEditContent ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0px 15px 0px;
+   
+}
+.sideContent .tiaoshi .classEdit .classEditContent ul li span{
+  display: inline-block;
+  width: 150px;
+  
+}
+.sideContent .tiaoshi .classEdit .classEditContent ul li input[type="text"]{
+    border: none;
+    outline: none;
+    width: 300px;
+    
+}
+.sideContent .tiaoshi .classEdit input[type="button"]{
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+.sideContent .tiaoshi .classEdit input[value="保存"]{
+    background: skyblue;
+}
+
+
+/*学生信息编辑**/
+.sideContent .studentBig .studentEdit {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+
+}
+
+.sideContent .studentBig .studentEdit .studentEditTitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.sideContent .studentBig .studentEdit .studentEditTitle img{
+    margin-right: 20px;
+}
+.sideContent .studentBig .studentEdit .studentEditContent ul{
+    width: 100%;
+}
+.sideContent .studentBig .studentEdit .studentEditContent ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0px 10px 0px;
+   
+}
+.sideContent .studentBig .studentEdit .studentEditContent ul li span{
+  display: inline-block;
+  width: 150px;
+  
+}
+.sideContent .studentBig .studentEdit .studentEditContent ul li input[type="text"]{
+    border: none;
+    outline: none;
+    width: 300px;
+    
+}
+.sideContent .studentBig .studentEdit input[type="button"]{
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+.sideContent .studentBig .studentEdit input[value="保存"]{
+    background: skyblue;
+}
+/*学生信息添加*/
+.sideContent .studentBig .addList {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    /*display: none;*/
+}
+
+.sideContent .studentBig .addList .studentAddTitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.sideContent .studentBig .addList .studentAddTitle img{
+    margin-right: 20px;
+}
+.sideContent .studentBig .addList .studentAddContent ul{
+    width: 100%;
+}
+.sideContent .studentBig .addList .studentAddContent ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0px 15px 0px;
+   
+}
+.sideContent .studentBig .addList .studentAddContent ul li span{
+  display: inline-block;
+  width: 150px;
+  
+}
+.sideContent .studentBig .addList .studentAddContent ul li input[type="text"]{
+    border: none;
+    outline: none;
+    width: 300px;
+    
+}
+.sideContent .studentBig .addList input[type="button"]{
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+.sideContent .studentBig .addList input[value="添加"]{
+    background: skyblue;
+}
+
+
+
+
+
+/*教师信息编辑*/
+.sideContent .teacherNew .teacherEdit {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+}
+
+.sideContent .teacherNew .teacherEdit .teacherEditTitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.sideContent .teacherNew .teacherEdit .teacherEditTitle img{
+    margin-right: 20px;
+}
+.sideContent .teacherNew .teacherEdit .teacherEditContent ul{
+    width: 100%;
+}
+.sideContent .teacherNew .teacherEdit .teacherEditContent ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0px 15px 0px;
+   
+}
+.sideContent .teacherNew .teacherEdit .teacherEditContent ul li span{
+  display: inline-block;
+  width: 150px;
+  
+}
+.sideContent .teacherNew .teacherEdit .teacherEditContent ul li input[type="text"]{
+    border: none;
+    outline: none;
+    width: 300px;
+    
+}
+.sideContent .teacherNew .teacherEdit input[type="button"]{
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+.sideContent .teacherNew .teacherEdit input[value="保存"]{
+    background: skyblue;
+}
+
+
+/* 教师信息添加 */
+.sideContent .teacherNew .addList {
+    position: absolute;
+    left: 181px;
+    top: 20px;
+    padding: 20px 0 20px 20px;
+    /*display: none;*/
+}
+
+.sideContent .teacherNew .addList .teacherAddTitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.sideContent .teacherNew .addList .teacherAddTitle img{
+    margin-right: 20px;
+}
+.sideContent .teacherNew .addList .teacherAddContent ul{
+    width: 100%;
+}
+.sideContent .teacherNew .addList .teacherAddContent ul li{
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0px 15px 0px;
+   
+}
+.sideContent .teacherNew .addList .teacherAddContent ul li span{
+  display: inline-block;
+  width: 150px;
+  
+}
+.sideContent .teacherNew .addList .teacherAddContent ul li input[type="text"]{
+    border: none;
+    outline: none;
+    width: 300px;
+    
+}
+.sideContent .teacherNew .addList input[type="button"]{
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+.sideContent .teacherNew .addList input[value="添加"]{
+    background: skyblue;
+}
+
+/*
+  媒体查询
+*/
+
+@media screen and (max-width: 1200px) {
+    .sideContent .tiaoshi .contentHead .paddingLeft,
+    .sideContent .tiaoshi .contentHead .padding_right {
+        /* position: static; */
+    }
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        /* display: inline-block; */
+        width: 100px;
+        padding: 10px 0px 10px 0px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .sideContent .tiaoshi .contentHead .paddingLeft,
+    .sideContent .tiaoshi .contentHead .padding_right {
+        /* position: static; */
+    }
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px 0px 10px 0px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .sideContent .tiaoshi .contentHead .paddingLeft,
+    .sideContent .tiaoshi .contentHead .padding_right {
+        /* position: static; */
+    }
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        /* display: inline-block; */
+        /* width: 100px; */
+        padding: 10px 0px 10px 0px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:0;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 95px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:0;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:0;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:60px;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px 20px 10px 20px;
+        font-size: 12px;
+    }
+    .sideContent .tiaoshi .contentHead .padding_right,
+    .sideContent .teacherNew .contentHead .padding_right {
+        position: absolute;
+        right: 20px;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    /* .sideContent .tiaoshi .contentHead .paddingName {
+        margin-left:180px;
+    } */
+    .sideContent .tiaoshi .mainContent .contentTitle span,
+    .sideContent .tiaoshi .mainContent .mainShow span,
+    .sideContent .teacherNew .mainContent .contentTitle span,
+    .sideContent .teacherNew .mainContent .mainShow span {
+        display: inline-block;
+        width: 100px;
+        padding: 10px 30px 10px 30px;
+        font-size: 12px;
+    }
+}
+input::-webkit-calendar-picker-indicator{  
+    display: none;  
+    -webkit-appearance: none;  
+}  
+/* 
+                               <div style="position:relative;">
+                                        <input type="text" placeholder="请选择课程类型" list='itemlist'>
+                                        <img src="../../img/drawdown.png" alt="" style="position: absolute;top: 9px;left: 100px;background: #fff;">
+                                        <datalist id="itemlist">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                        </datalist> 
+                                    </div>
+ */
