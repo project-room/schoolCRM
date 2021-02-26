@@ -1,5 +1,5 @@
 acsclient==1.0.6
-aiohttp==2.3.7
+aiohttp==3.7.4
 aiomysql==0.0.11
 aliyun-python-sdk-core-v3==2.8.6
 aliyun-python-sdk-dysmsapi==1.0.0
