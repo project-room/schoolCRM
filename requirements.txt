@@ -22,7 +22,7 @@ django-pure-pagination==0.3.0
 Flask==0.12.2
 idna==2.6
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 kombu==4.1.0
 legacy==0.1.6
 MarkupSafe==1.0
